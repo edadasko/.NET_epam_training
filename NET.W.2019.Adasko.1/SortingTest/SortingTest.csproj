@@ -36,7 +36,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SortingMethods\SortingMethodsLibrary.csproj">
+    <ProjectReference Include="..\SortingMethodsLibrary\SortingMethodsLibrary.csproj">
       <Project>{5E644B95-907C-4877-A492-5D3F077E3255}</Project>
       <Name>SortingMethodsLibrary</Name>
     </ProjectReference>
