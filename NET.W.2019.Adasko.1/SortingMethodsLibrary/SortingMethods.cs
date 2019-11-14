@@ -59,18 +59,21 @@ namespace SortingMethodsLibrary
 		/// <param name="array">Unsorted array.</param>
 		public static void MergeSort(this int[] array)
 		{
-			MergeSort(array, 0, array.Length).CopyTo(array, 0);
+            if (array == null)
+                throw new ArgumentNullException();
+
+            MergeSort(array, 0, array.Length).CopyTo(array, 0);
 		}
 
 		private static int[] MergeSort(int[] array, int begin, int end)
 		{
 			static int[] Merge(int[] left, int[] right)
 			{
-				int[] result = new int[left.Length + right.Length];
+			    int[] result = new int[left.Length + right.Length];
 
 				int leftIndex = 0;
 				int rightIndex = 0;
-				int resultIndex = 0;
+			    int resultIndex = 0;
 
 				while (leftIndex < left.Length && rightIndex < right.Length)
 				{
@@ -100,8 +103,8 @@ namespace SortingMethodsLibrary
             if (!array.Any())
                 return new int[0];
 
-			if (begin == end - 1)
-				return new int[] { array[begin] };
+		    if (begin == end - 1)
+			    return new int[] { array[begin] };
 
 			int middle = (begin + end) / 2;
 			int[] left = MergeSort(array, begin, middle);
