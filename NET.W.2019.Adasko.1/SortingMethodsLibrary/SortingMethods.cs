@@ -3,7 +3,7 @@ using System.Linq;
 namespace SortingMethodsLibrary
 {
     public static class SortingMethods
-	{
+    {
         /// <summary>
         /// Quick Sort implementation using Lomuto partition scheme.
         /// Time complexity:
@@ -21,13 +21,13 @@ namespace SortingMethodsLibrary
         }
 
         private static void QuickSort(int[] array, int begin, int end)
-		{
+        {
 		    if (!array.Any() || begin >= end - 1)
 			    return;
 
 		    static void Swap(ref int a, ref int b)
-		    {
-			    int temp = a; a = b; b = temp;
+            {
+                int temp = a; a = b; b = temp;
             }
 
             int pivot = array[end - 1];
@@ -64,7 +64,7 @@ namespace SortingMethodsLibrary
                 throw new ArgumentNullException();
 
             MergeSort(array, 0, array.Length).CopyTo(array, 0);
-		}
+        }
 
         private static int[] MergeSort(int[] array, int begin, int end)
         {
@@ -109,6 +109,6 @@ namespace SortingMethodsLibrary
             int[] left = MergeSort(array, begin, middle);
             int[] right = MergeSort(array, middle, end);
             return Merge(left, right);
-		}
-	}
+        }
+    }
 }
