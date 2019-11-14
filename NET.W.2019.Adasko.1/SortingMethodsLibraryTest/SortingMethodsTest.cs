@@ -19,7 +19,7 @@ namespace SortingMethodsLibraryTest
         [TestCase(new int[] { 100, 1, 2, 3, 4, 5 })]
         [TestCase(new int[] { -21, 23, 443, 22, -12, 0, 0, 1, 23, 1})]
         public void MergeSortTest(int[] unsortedArray)
-            => SortTest(SortingMethods.MergeSort, unsortedArray);
+           => SortTest(SortingMethods.MergeSort, unsortedArray);
 
         [TestCase(new int[0])]
         [TestCase(new int[] { 1 })]
@@ -31,7 +31,6 @@ namespace SortingMethodsLibraryTest
         [TestCase(new int[] { 1, 2, 3, 4, 5, -100 })]
         [TestCase(new int[] { 100, 1, 2, 3, 4, 5 })]
         [TestCase(new int[] { -21, 23, 443, 22, -12, 0, 0, 1, 23, 1 })]
-
         public void QuickSortTest(int[] unsortedArray)
             => SortTest(SortingMethods.QuickSort, unsortedArray);
 
