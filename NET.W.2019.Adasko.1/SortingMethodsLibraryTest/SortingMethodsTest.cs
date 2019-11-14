@@ -17,7 +17,6 @@ namespace SortingMethodsLibraryTest
         [TestCase(new int[] { 5, 4, 3, 2, 1 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, -100})]
         [TestCase(new int[] { 100, 1, 2, 3, 4, 5 })]
-        [TestCase(new int[] { -21, 23, 443, 22, -12, 0, 0, 1, 23, 1})]
         public void MergeSortTest(int[] unsortedArray)
            => SortTest(SortingMethods.MergeSort, unsortedArray);
 
@@ -30,7 +29,6 @@ namespace SortingMethodsLibraryTest
         [TestCase(new int[] { 5, 4, 3, 2, 1 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, -100 })]
         [TestCase(new int[] { 100, 1, 2, 3, 4, 5 })]
-        [TestCase(new int[] { -21, 23, 443, 22, -12, 0, 0, 1, 23, 1 })]
         public void QuickSortTest(int[] unsortedArray)
             => SortTest(SortingMethods.QuickSort, unsortedArray);
 
@@ -42,6 +40,22 @@ namespace SortingMethodsLibraryTest
             mySort(unsortedArray);
 
             Assert.AreEqual(unsortedArray, sortedArray);
+        }
+
+        [Test]
+        public void RandomQuickSortTest() => RandomSortTest(SortingMethods.QuickSort);
+
+        [Test]
+        public void RandomMergeSortTest() => RandomSortTest(SortingMethods.MergeSort);
+
+        private void RandomSortTest(Action<int[]> mySort)
+        {
+            int[] unsortesArray = new int[1000000];
+            Random random = new Random();
+            for (int i = 0; i < unsortesArray.Length; i++)
+                unsortesArray[i] = random.Next();
+
+            SortTest(mySort, unsortesArray);
         }
     }
 }
