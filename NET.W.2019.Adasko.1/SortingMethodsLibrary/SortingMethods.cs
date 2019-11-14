@@ -22,10 +22,10 @@ namespace SortingMethodsLibrary
 
         private static void QuickSort(int[] array, int begin, int end)
         {
-		    if (!array.Any() || begin >= end - 1)
-			    return;
+            if (!array.Any() || begin >= end - 1)
+                return;
 
-		    static void Swap(ref int a, ref int b)
+            static void Swap(ref int a, ref int b)
             {
                 int temp = a; a = b; b = temp;
             }
