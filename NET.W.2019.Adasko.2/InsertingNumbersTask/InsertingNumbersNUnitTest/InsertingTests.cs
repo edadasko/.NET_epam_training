@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace InsertingNumbersTest
 {
-    public class InsertingTests
+    public class InsertingNUnitTests
     {
         [TestCase(15, 15, 0, 0, ExpectedResult = 15)]
         [TestCase(8, 15, 0, 0, ExpectedResult = 9)]
