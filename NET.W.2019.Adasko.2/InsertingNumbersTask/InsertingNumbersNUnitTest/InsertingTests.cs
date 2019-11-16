@@ -22,13 +22,6 @@ namespace InsertingNumbersTest
                   unchecked((int)
                   0b10000000_00000000_11000011_10000011))]
 
-        [TestCase(0b00010000_00101100_11110001_10000111,
-                  unchecked((int)
-                  0b10000000_00000000_11000011_10000011), 0, 31,
-                  ExpectedResult =
-                  unchecked((int)
-                  0b10000000_00000000_11000011_10000011))]
-
         [TestCase(unchecked((int)0b11110000_00101100_11110001_10000111),
                   unchecked((int)0b10011000_11111000_10100011_10111011), 6, 24,
                   ExpectedResult =
