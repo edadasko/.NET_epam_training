@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace FindNextBiggerNumberTask
 {
     public static class FindNextBiggerNumber
     {
-        public static int Find(int num)
+        /// <summary>
+        /// Finds the minimum number bigger than given
+        /// that consists the same numbers in a different permutation.
+        /// </summary>
+        /// <returns>
+        /// An answer if exist or -1 otherwise.
+        /// </returns>
+        public static long FindNextBiggerPermutation(int num)
         {
             var strNum = num.ToString();
 
@@ -16,7 +24,7 @@ namespace FindNextBiggerNumberTask
             var numArray = strNum.ToCharArray();
             Swap(ref numArray[indexesForSwapping.Item1], ref numArray[indexesForSwapping.Item2]);
             Array.Sort(numArray, indexesForSwapping.Item1 + 1, numArray.Length - indexesForSwapping.Item1 - 1);
-            return Convert.ToInt32(string.Join("", numArray));
+            return Convert.ToInt64(string.Join("", numArray));
         }
 
         private static Tuple<int, int> FindOptimalChangingIndexes(string num)
@@ -28,6 +36,22 @@ namespace FindNextBiggerNumberTask
                     return new Tuple<int, int>(i, nextBiggerDigit);
             }
             return null;
+        }
+
+        public static double MeasureTimeWithStopwatch(int num)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            FindNextBiggerPermutation(num);
+            stopwatch.Stop();
+            return stopwatch.Elapsed.TotalMilliseconds;
+        }
+
+        public static double MeasureTimeWithDateTime(int num)
+        {
+            DateTime start = DateTime.Now;
+            FindNextBiggerPermutation(num);
+            return (DateTime.Now - start).TotalMilliseconds;
         }
 
         private static void Swap(ref char a, ref char b)
