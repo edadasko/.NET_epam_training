@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsertingNumbers", "InsertingNumbers\InsertingNumbers.csproj", "{1BD1C461-2F88-433D-A478-BA92C24F231D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsertingNumbersTest", "InsertingNumbersTest\InsertingNumbersTest.csproj", "{BF3BA368-D7A3-4661-925F-74D1A196FA69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BD1C461-2F88-433D-A478-BA92C24F231D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD1C461-2F88-433D-A478-BA92C24F231D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD1C461-2F88-433D-A478-BA92C24F231D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD1C461-2F88-433D-A478-BA92C24F231D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3BA368-D7A3-4661-925F-74D1A196FA69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3BA368-D7A3-4661-925F-74D1A196FA69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3BA368-D7A3-4661-925F-74D1A196FA69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3BA368-D7A3-4661-925F-74D1A196FA69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
