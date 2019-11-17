@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDigitTask", "FilterDigitTask\FilterDigitTask.csproj", "{E82CE6D6-0B9A-4FAF-B206-864A0925BA6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDigitTest", "FilterDigitTest\FilterDigitTest.csproj", "{5E828002-27C8-4E27-BEEA-204999769D1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E82CE6D6-0B9A-4FAF-B206-864A0925BA6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E82CE6D6-0B9A-4FAF-B206-864A0925BA6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E82CE6D6-0B9A-4FAF-B206-864A0925BA6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E82CE6D6-0B9A-4FAF-B206-864A0925BA6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E828002-27C8-4E27-BEEA-204999769D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E828002-27C8-4E27-BEEA-204999769D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E828002-27C8-4E27-BEEA-204999769D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E828002-27C8-4E27-BEEA-204999769D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
