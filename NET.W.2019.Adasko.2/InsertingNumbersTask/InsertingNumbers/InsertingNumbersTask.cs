@@ -10,7 +10,7 @@ namespace InsertingNumbers
         /// <summary>
         /// Inserts bits of one integer number to another.
         /// Segment of [i, j] bits of the first number will be replaced
-        /// by the first (j - i) bits of the second number.
+        /// by the first (j - i + 1) bits of the second number.
         /// Numbers of bits for inserting should be passed as parameters.
         /// </summary>
         /// <param name="targetNum">
