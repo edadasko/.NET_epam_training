@@ -1,6 +1,6 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using InsertingNumbers;
 using System;
+using InsertingNumbers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace InsertingNumbersMsUnitTest
 {
@@ -10,10 +10,12 @@ namespace InsertingNumbersMsUnitTest
         [TestMethod]
         public void ExceptionTest()
         {
-            Assert.ThrowsException<OverflowException>(() => InsertingNumbersTask.InsertNumber(
-                0b00000000_00000000_11111111_11111111,
-                0b00000000_00000000_11111111_11111111,
-                16, 31));
+            Assert.ThrowsException<OverflowException>(
+                () => InsertingNumbersTask.InsertNumber(
+                    0b00000000_00000000_11111111_11111111,
+                    0b00000000_00000000_11111111_11111111,
+                    16,
+                    31));
         }
 
         [TestMethod]

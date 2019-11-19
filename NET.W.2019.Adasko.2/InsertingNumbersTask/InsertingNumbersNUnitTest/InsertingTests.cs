@@ -33,11 +33,12 @@ namespace InsertingNumbersTest
         [Test]
         public void InsertExceptionTest()
         {
-            Assert.Throws<System.OverflowException>(() =>
-                InsertingNumbersTask.InsertNumber(
+            Assert.Throws<System.OverflowException>(
+                () => InsertingNumbersTask.InsertNumber(
                     0b00000000_00000000_11111111_11111111,
-                    0b00000000_00000000_11111111_11111111, 16, 31));
-        }
-            
+                    0b00000000_00000000_11111111_11111111,
+                    16,
+                    31));
+        }   
     }
 }

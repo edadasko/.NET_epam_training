@@ -4,8 +4,8 @@ namespace InsertingNumbers
 {
     public static class InsertingNumbersTask
     {
-        private const int numOfBits = 32;
-        private const uint mask = uint.MaxValue;
+        private const int NumOfBits = 32;
+        private const uint Mask = uint.MaxValue;
 
         /// <summary>
         /// Inserts bits of one integer number to another.
@@ -34,17 +34,21 @@ namespace InsertingNumbers
         /// </exception>
         public static int InsertNumber(int targetNum, int insertNum, int i, int j)
         {
-            if (i > j || i < 0 || j < 0 || i > numOfBits - 1 || j > numOfBits - 1)
+            if (i > j || i < 0 || j < 0 || i > NumOfBits - 1 || j > NumOfBits - 1)
+            {
                 throw new ArgumentException();
+            }
 
-            uint maskForInsertNum = mask >> (numOfBits - 1 - j);
+            uint maskForInsertNum = Mask >> (NumOfBits - 1 - j);
             insertNum = (int)((insertNum << i) & maskForInsertNum);
 
-            uint maskForTargetNum = (mask << j) | (mask >> numOfBits - 1 - i);
+            uint maskForTargetNum = (Mask << j) | (Mask >> (NumOfBits - 1 - i));
             targetNum = (int)(maskForTargetNum & targetNum);
 
             if ((uint)(insertNum | targetNum) == uint.MaxValue)
+            {
                 throw new OverflowException();
+            }
 
             return insertNum | targetNum;
         }
