@@ -4,6 +4,7 @@
 // </copyright>
 // <author>Eduard Adasko</author>
 //-----------------------------------------------------------------------
+
 namespace IEEE_Task.Tests
 {
     using NUnit.Framework;

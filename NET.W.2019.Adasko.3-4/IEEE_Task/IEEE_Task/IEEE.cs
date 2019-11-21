@@ -22,7 +22,7 @@ namespace IEEE_Task
         private const int NumOfBits = 64;
 
         /// <summary>
-        /// Converts passed double value to its IEEE representation. 
+        /// Extension method which converts passed double value to its string IEEE representation. 
         /// </summary>
         /// <param name="number">
         /// Double value for converting.
