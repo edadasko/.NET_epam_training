@@ -1,9 +1,23 @@
-using NUnit.Framework;
-using PolynomialTask;
+//---------------------------------------------------------
+// <copyright file="PolynomialTests.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
+
 namespace PolynomialTask.Tests
 {
+    using NUnit.Framework;
+    using PolynomialTask;
+
+    /// <summary>
+    /// Class for testing operations with polynomials.
+    /// </summary>
     public class PolynomialTests
     {
+        /// <summary>
+        /// Tests converting polynomial to string.
+        /// </summary>
         [Test]
         public void PolynomialToStringTest()
         {
@@ -12,9 +26,12 @@ namespace PolynomialTask.Tests
             Assert.AreEqual(new Polynomial(-1, 0, 0, 0, 5).ToString(), "-x^4 + 5");
             Assert.AreEqual(new Polynomial(5).ToString(), "5");
             Assert.AreEqual(new Polynomial(5, 0).ToString(), "5x");
-            Assert.AreEqual(new Polynomial().ToString(), "");
+            Assert.AreEqual(new Polynomial().ToString(), string.Empty);
         }
 
+        /// <summary>
+        /// Tests comparisons with polynomials.
+        /// </summary>
         [Test]
         public void PolynomialAreEqualTest()
         {
@@ -23,6 +40,9 @@ namespace PolynomialTask.Tests
             Assert.AreNotEqual(new Polynomial(1, 2, 3, 4, 5), new Polynomial(1, 2, 3, 0, 5));
         }
 
+        /// <summary>
+        /// Tests GetHashCode method in Polynomial class.
+        /// </summary>
         [Test]
         public void PolynomialGetHashCodeTest()
         {
@@ -30,14 +50,20 @@ namespace PolynomialTask.Tests
             Assert.AreNotEqual(new Polynomial(5, 2, 3, 4, 1).GetHashCode(), new Polynomial(5, 2, 3, 0, 1).GetHashCode());
         }
 
+        /// <summary>
+        /// Tests == operator with polynomials.
+        /// </summary>
         [Test]
         public void PolynomialOperatorsEqualsTest()
         {
             Assert.IsTrue(new Polynomial(1) == 1);
-            Assert.IsTrue(100 == new Polynomial(100));
+            Assert.IsTrue(new Polynomial(100) == 100);
             Assert.IsTrue(new Polynomial(4) != 100);
         }
 
+        /// <summary>
+        /// Tests + operator with polynomials.
+        /// </summary>
         [Test]
         public void PolynomialAdditionTest()
         {
@@ -56,6 +82,9 @@ namespace PolynomialTask.Tests
             Assert.AreEqual(new Polynomial(0, 0, 5) + new Polynomial(0, 5), new Polynomial(10));
         }
 
+        /// <summary>
+        /// Tests - operator with polynomials.
+        /// </summary>
         [Test]
         public void PolynomialSubtractionTest()
         {
@@ -65,12 +94,16 @@ namespace PolynomialTask.Tests
             Assert.AreEqual(5 - new Polynomial(1, 2, 3), new Polynomial(-1, -2, 2));
         }
 
+        /// <summary>
+        /// Tests * operator with polynomials.
+        /// </summary>
         [Test]
         public void PolynomialMultiplicationTest()
         {
             Assert.AreEqual(new Polynomial(2, 1, 0) * new Polynomial(1, 2, 3), new Polynomial(2, 5, 8, 3, 0));
             Assert.AreEqual(new Polynomial(2, 1, 0) * 5, new Polynomial(10, 5, 0));
             Assert.AreEqual(new Polynomial(2, 1, 0) * 0, new Polynomial());
+            Assert.AreEqual(new Polynomial(2, 1, 0) * new Polynomial(), new Polynomial());
             Assert.AreEqual(new Polynomial(3, 7) * new Polynomial(1, 2), new Polynomial(3, 13, 14));
         }
     }
