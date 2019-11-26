@@ -18,7 +18,7 @@ namespace PolynomialTask
         /// <summary>
         /// Uses in comparison of two double numbers.
         /// </summary>
-        private const double EPSILON = 0.0000000001;
+        private const double EPSILON = 1E-10;
 
         /// <summary>
         /// Coefficients of polynimial.
