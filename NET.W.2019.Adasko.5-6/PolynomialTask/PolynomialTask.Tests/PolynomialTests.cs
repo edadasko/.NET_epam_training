@@ -7,6 +7,7 @@
 
 namespace PolynomialTask.Tests
 {
+    using System;
     using NUnit.Framework;
     using PolynomialTask;
 
@@ -105,6 +106,17 @@ namespace PolynomialTask.Tests
             Assert.AreEqual(new Polynomial(2, 1, 0) * 0, new Polynomial());
             Assert.AreEqual(new Polynomial(2, 1, 0) * new Polynomial(), new Polynomial());
             Assert.AreEqual(new Polynomial(3, 7) * new Polynomial(1, 2), new Polynomial(3, 13, 14));
+        }
+
+        /// <summary>
+        /// Tests / operator with polynomials.
+        /// </summary>
+        [Test]
+        public void PolynomialDivisionTest()
+        {
+            Assert.AreEqual(new Polynomial(10, 15, 5) / 5, new Polynomial(2, 3, 1));
+            var p = new Polynomial(10, 15, 5);
+            Assert.Throws<DivideByZeroException>(() => { var a = p / 0; });
         }
     }
 }

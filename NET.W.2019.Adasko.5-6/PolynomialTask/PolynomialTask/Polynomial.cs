@@ -234,6 +234,28 @@ namespace PolynomialTask
         public static Polynomial operator *(double num, Polynomial p) => p * num;
 
         /// <summary>
+        /// Overloading / operator for division polynomial and number.
+        /// </summary>
+        /// <param name="p">
+        /// Polynomial for division.
+        /// </param>
+        /// <param name="num">
+        /// Number for division.
+        /// </param>
+        /// <returns>
+        /// Result of division.
+        /// </returns>
+        public static Polynomial operator /(Polynomial p, double num)
+        {
+            if (Math.Abs(num) < EPSILON)
+            {
+                throw new DivideByZeroException();
+            }
+
+            return p * (1 / num);
+        }
+
+        /// <summary>
         /// Overloading == operator for comparison two polynomials.
         /// </summary>
         /// <param name="p1">
