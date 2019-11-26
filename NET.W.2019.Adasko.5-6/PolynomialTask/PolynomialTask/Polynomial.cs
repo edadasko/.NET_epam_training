@@ -102,12 +102,12 @@ namespace PolynomialTask
 
         public static Polynomial operator +(Polynomial p1, Polynomial p2)
         {
-            Polynomial result;
+            double[] resultCoeffs;
 
             if (p1.degree >= p2.degree)
-                result = new Polynomial(p1.coefficients);
+                resultCoeffs = p1.coefficients;
             else
-                result = new Polynomial(p2.coefficients);
+                resultCoeffs = p2.coefficients;
 
 
             int p1Index = p1.degree, p2Index = p2.degree;
@@ -115,13 +115,13 @@ namespace PolynomialTask
 
             while(p1Index >= 0 && p2Index >= 0)
             {
-                result.coefficients[maxIndex] = p1.coefficients[p1Index] + p2.coefficients[p2Index];
+                resultCoeffs[maxIndex] = p1.coefficients[p1Index] + p2.coefficients[p2Index];
                 p1Index--;
                 p2Index--;
                 maxIndex--;
             }
 
-            return new Polynomial(result.coefficients);
+            return new Polynomial(resultCoeffs);
         }
 
         public static Polynomial operator +(Polynomial p, double num) => p + new Polynomial(num);
@@ -141,6 +141,23 @@ namespace PolynomialTask
         public static Polynomial operator -(Polynomial p1, Polynomial p2) => p1 + -p2;
         public static Polynomial operator -(Polynomial p, double num) => p + -num;
         public static Polynomial operator -(double num, Polynomial p) => num + -p;
+
+        public static Polynomial operator *(Polynomial p1, Polynomial p2)
+        {
+            double[] resultCoeffs = new double[p1.degree + p2.degree + 1];
+            for (int p1Index = 0; p1Index < p1.degree + 1; p1Index++)
+            {
+                for (int p2Index = 0; p2Index < p2.degree + 1; p2Index++)
+                {
+                    resultCoeffs[p1Index + p2Index] += p1.coefficients[p1Index] * p2.coefficients[p2Index];
+                }
+            }
+
+            return new Polynomial(resultCoeffs);
+        }
+
+        public static Polynomial operator *(Polynomial p, double num) => p * new Polynomial(num);
+        public static Polynomial operator *(double num, Polynomial p) => p * num;
 
         public static bool operator ==(Polynomial p1, Polynomial p2) => p1.Equals(p2);
         public static bool operator !=(Polynomial p1, Polynomial p2) => !p1.Equals(p2);

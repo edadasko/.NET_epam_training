@@ -65,5 +65,13 @@ namespace PolynomialTask.Tests
             Assert.AreEqual(5 - new Polynomial(1, 2, 3), new Polynomial(-1, -2, 2));
         }
 
+        [Test]
+        public void PolynomialMultiplicationTest()
+        {
+            Assert.AreEqual(new Polynomial(2, 1, 0) * new Polynomial(1, 2, 3), new Polynomial(2, 5, 8, 3, 0));
+            Assert.AreEqual(new Polynomial(2, 1, 0) * 5, new Polynomial(10, 5, 0));
+            Assert.AreEqual(new Polynomial(2, 1, 0) * 0, new Polynomial());
+            Assert.AreEqual(new Polynomial(3, 7) * new Polynomial(1, 2), new Polynomial(3, 13, 14));
+        }
     }
 }
