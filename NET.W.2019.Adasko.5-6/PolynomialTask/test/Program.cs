@@ -6,8 +6,7 @@ namespace test
     {
         static void Main(string[] args)
         {
-            Polynomial a = new Polynomial(-1, 0, 0, 0, 5);
-
+            var a = new Polynomial(1, 2, 3) + new Polynomial(-1, 2, 3);
             Console.WriteLine(a);
         }
     }
