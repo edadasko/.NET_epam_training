@@ -71,6 +71,11 @@ namespace PolynomialTask
         /// </returns>
         public static Polynomial operator +(Polynomial p1, Polynomial p2)
         {
+            if (p1 == null || p2 == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             double[] resultCoeffs = p1.degree >= p2.degree ?
                 new double[p1.degree + 1] : new double[p2.degree + 1];
 
@@ -129,6 +134,11 @@ namespace PolynomialTask
         /// </returns>
         public static Polynomial operator -(Polynomial p)
         {
+            if (p == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             double[] resultCoeffs = new double[p.degree + 1];
 
             for (int i = 0; i < p.degree + 1; i++)
@@ -195,6 +205,11 @@ namespace PolynomialTask
         /// </returns>
         public static Polynomial operator *(Polynomial p1, Polynomial p2)
         {
+            if (p1 == null || p2 == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             double[] resultCoeffs = new double[p1.degree + p2.degree + 1];
             for (int indexP1 = 0; indexP1 < p1.degree + 1; indexP1++)
             {
@@ -249,6 +264,11 @@ namespace PolynomialTask
         /// </returns>
         public static Polynomial operator /(Polynomial p, double num)
         {
+            if (p == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (Math.Abs(num) < EPSILON)
             {
                 throw new DivideByZeroException();
