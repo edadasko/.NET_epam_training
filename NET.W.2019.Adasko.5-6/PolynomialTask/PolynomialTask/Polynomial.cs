@@ -71,9 +71,10 @@ namespace PolynomialTask
         /// </returns>
         public static Polynomial operator +(Polynomial p1, Polynomial p2)
         {
-            double[] resultCoeffs;
+            double[] resultCoeffs = p1.degree >= p2.degree ?
+                new double[p1.degree + 1] : new double[p2.degree + 1];
 
-            resultCoeffs = p1.degree >= p2.degree ? p1.coefficients : p2.coefficients;
+            Array.Copy(p1.degree >= p2.degree ? p1.coefficients : p2.coefficients, resultCoeffs, resultCoeffs.Length);
 
             int indexP1 = p1.degree, indexP2 = p2.degree;
             int maxIndex = Math.Max(indexP1, indexP2);
@@ -128,13 +129,14 @@ namespace PolynomialTask
         /// </returns>
         public static Polynomial operator -(Polynomial p)
         {
-            Polynomial result = new Polynomial(p.coefficients);
-            for (int i = 0; i < result.degree + 1; i++)
+            double[] resultCoeffs = new double[p.degree + 1];
+
+            for (int i = 0; i < p.degree + 1; i++)
             {
-                result.coefficients[i] = -result.coefficients[i];
+                resultCoeffs[i] = -p.coefficients[i];
             }
 
-            return result;
+            return new Polynomial(resultCoeffs);
         }
 
         /// <summary>
