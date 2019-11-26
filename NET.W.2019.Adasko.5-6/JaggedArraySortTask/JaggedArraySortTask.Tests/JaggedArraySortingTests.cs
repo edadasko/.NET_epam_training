@@ -1,10 +1,23 @@
+//-----------------------------------------------------------------------
+// <copyright file="JaggedArraySortingTests.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
+
 namespace JaggedArraySortTask.Tests
 {
     using System;
     using NUnit.Framework;
 
-    public class JaggedArraySortTests
+    /// <summary>
+    /// Provides tests for JaggedArraySorting class.
+    /// </summary>
+    public class JaggedArraySortingTests
     {
+        /// <summary>
+        /// Tests jagged array sorting by ascending of sums of rows elements.
+        /// </summary>
         [Test]
         public void OrderBySumTest()
         {
@@ -30,8 +43,11 @@ namespace JaggedArraySortTask.Tests
                 testArray);
         }
 
+        /// <summary>
+        /// Tests jagged array sorting by descending of sums of rows elements.
+        /// </summary>
         [Test]
-        public void OrderBySumDescedingTest()
+        public void OrderBySumDescendingTest()
         {
             var testArray =
                 new int[][]
@@ -42,7 +58,7 @@ namespace JaggedArraySortTask.Tests
                     new int[] { -1, -5, -10 },
                 };
 
-            testArray.OrderBySumDesceding();
+            testArray.OrderBySumDescending();
 
             Assert.AreEqual(
                 new int[][]
@@ -55,6 +71,9 @@ namespace JaggedArraySortTask.Tests
                 testArray);
         }
 
+        /// <summary>
+        /// Tests jagged array sorting by ascending of minimum element of its rows.
+        /// </summary>
         [Test]
         public void OrderByMinElementTest()
         {
@@ -82,8 +101,11 @@ namespace JaggedArraySortTask.Tests
                 testArray);
         }
 
+        /// <summary>
+        /// Tests jagged array sorting by descending of minimum element of its rows.
+        /// </summary>
         [Test]
-        public void OrderByMinElementDescedingTest()
+        public void OrderByMinElementDescendingTest()
         {
             var testArray =
                 new int[][]
@@ -95,7 +117,7 @@ namespace JaggedArraySortTask.Tests
                     new int[] { 5, 10, -100 },
                 };
 
-            testArray.OrderByMinElementDesceding();
+            testArray.OrderByMinElementDescending();
 
             Assert.AreEqual(
                 new int[][]
@@ -109,6 +131,9 @@ namespace JaggedArraySortTask.Tests
                 testArray);
         }
 
+        /// <summary>
+        /// Tests jagged array sorting by ascending of maximum element of its rows.
+        /// </summary>
         [Test]
         public void OrderByMaxElementTest()
         {
@@ -136,8 +161,11 @@ namespace JaggedArraySortTask.Tests
                 testArray);
         }
 
+        /// <summary>
+        /// Tests jagged array sorting by descending of maximum element of its rows.
+        /// </summary>
         [Test]
-        public void OrderByMaxElementDescedingTest()
+        public void OrderByMaxElementDescendingTest()
         {
             var testArray =
                 new int[][]
@@ -149,7 +177,7 @@ namespace JaggedArraySortTask.Tests
                     new int[] { -100, 5, 10 }
                 };
 
-            testArray.OrderByMaxElementDesceding();
+            testArray.OrderByMaxElementDescending();
 
             Assert.AreEqual(
                 new int[][]
@@ -163,6 +191,9 @@ namespace JaggedArraySortTask.Tests
                 testArray);
         }
 
+        /// <summary>
+        /// Test some exceptions which can be thrown in sorting methods.
+        /// </summary>
         [Test]
         public void OrderExceptionTest()
         {
@@ -188,6 +219,9 @@ namespace JaggedArraySortTask.Tests
             Assert.Throws<ArgumentException>(() => someRowsEmptyArray.OrderByMaxElement());
         }
 
+        /// <summary>
+        /// Tests empty array sorting.
+        /// </summary>
         [Test]
         public void EmptyArrayTest()
         {

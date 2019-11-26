@@ -1,29 +1,87 @@
-﻿namespace JaggedArraySortTask
+﻿//-----------------------------------------------------------------------
+// <copyright file="JaggedArraySorting.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
+
+namespace JaggedArraySortTask
 {
     using System;
     using System.Linq;
 
+    /// <summary>
+    /// Provides extension methods for sorting
+    /// jagged arrays with different sorting criterions.
+    /// </summary>
     public static class JaggedArraySorting
     {
+        /// <summary>
+        /// Sorts jagged array by ascending of sums of its rows elements.
+        /// </summary>
+        /// <param name="array">
+        /// Jagged array for sorting.
+        /// </param>
         public static void OrderBySum(this int[][] array) =>
-            Sort(array, (a, b) => a.Sum() > b.Sum());
+            BubbleSort(array, (a, b) => a.Sum() > b.Sum());
 
-        public static void OrderBySumDesceding(this int[][] array) =>
-            Sort(array, (a, b) => a.Sum() < b.Sum());
+        /// <summary>
+        /// Sorts jagged array by descending of sums of its rows elements.
+        /// </summary>
+        /// <param name="array">
+        /// Jagged array for sorting.
+        /// </param>
+        public static void OrderBySumDescending(this int[][] array) =>
+            BubbleSort(array, (a, b) => a.Sum() < b.Sum());
 
+        /// <summary>
+        /// Sorts jagged array by ascending of minimum element of its rows.
+        /// </summary>
+        /// <param name="array">
+        /// Jagged array for sorting.
+        /// </param>
         public static void OrderByMinElement(this int[][] array) =>
-            Sort(array, (a, b) => a.Min() > b.Min());
+            BubbleSort(array, (a, b) => a.Min() > b.Min());
 
-        public static void OrderByMinElementDesceding(this int[][] array) =>
-            Sort(array, (a, b) => a.Min() < b.Min());
+        /// <summary>
+        /// Sorts jagged array by descending of minimum element of its rows.
+        /// </summary>
+        /// <param name="array">
+        /// Jagged array for sorting.
+        /// </param>
+        public static void OrderByMinElementDescending(this int[][] array) =>
+            BubbleSort(array, (a, b) => a.Min() < b.Min());
 
+        /// <summary>
+        /// Sorts jagged array by ascending of maximum element of its rows.
+        /// </summary>
+        /// <param name="array">
+        /// Jagged array for sorting.
+        /// </param>
         public static void OrderByMaxElement(this int[][] array) =>
-            Sort(array, (a, b) => a.Max() > b.Max());
+            BubbleSort(array, (a, b) => a.Max() > b.Max());
 
-        public static void OrderByMaxElementDesceding(this int[][] array) =>
-            Sort(array, (a, b) => a.Max() < b.Max());
+        /// <summary>
+        /// Sorts jagged array by descending of maximum element of its rows.
+        /// </summary>
+        /// <param name="array">
+        /// Jagged array for sorting.
+        /// </param>
+        public static void OrderByMaxElementDescending(this int[][] array) =>
+            BubbleSort(array, (a, b) => a.Max() < b.Max());
 
-        private static void Sort(int[][] array, Func<int[], int[], bool> sortingCriterion)
+        /// <summary>
+        /// Sorts passed jagged array using bubble sort.
+        /// </summary>
+        /// <param name="array">
+        /// Jagged array for sorting.
+        /// </param>
+        /// <param name="sortingCriterion">
+        /// Delegate which defines how rows will be sorted.
+        /// Should return true if the first passed row
+        /// should be placed righter than the second row.
+        /// </param>
+        private static void BubbleSort(int[][] array, Func<int[], int[], bool> sortingCriterion)
         {
             if (array == null)
             {
