@@ -50,5 +50,7 @@ namespace BooksTask
         }
 
         public List<Book> FindBooksByTag(BookFinder finder) => finder.FindByTag(this.Books);
+
+        public void SortBooksByTag(IComparer<Book> comparer) => Books.Sort(comparer);
     }
 }
