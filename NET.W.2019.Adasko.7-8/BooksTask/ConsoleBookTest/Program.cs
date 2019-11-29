@@ -17,6 +17,8 @@ namespace ConsoleBookTest
 
             bookListService.GetBooksFromStorage();
 
+            var titleResult = bookListService.FindBooksByTag(new TitleBookFinder("1"));
+            var authorResult = bookListService.FindBooksByTag(new AuthorBookFinder("2"));
             //bookListService.AddBook(a);
             //bookListService.AddBook(b);
             //bookListService.AddBook(c);

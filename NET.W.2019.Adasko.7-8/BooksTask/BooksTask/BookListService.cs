@@ -46,8 +46,9 @@ namespace BooksTask
             {
                 throw new ArgumentException("There is not such book.");
             }
-
             Books.Remove(book);
         }
+
+        public List<Book> FindBooksByTag(BookFinder finder) => finder.FindByTag(this.Books);
     }
 }
