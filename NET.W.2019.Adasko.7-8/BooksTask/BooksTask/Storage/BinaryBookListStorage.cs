@@ -1,25 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿//-----------------------------------------------------------------------
+// <copyright file="BinaryBookListStorage.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
-namespace BooksTask
+namespace BooksTask.Storage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+
+    /// <summary>
+    /// Provides permanent storage for books list using binary file.
+    /// </summary>
     public class BinaryBookListStorage : IBookListStorage
     {
+        /// <summary>
+        /// Path to the binary file.
+        /// </summary>
         private readonly string filePath;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BinaryBookListStorage"/> class.
+        /// </summary>
+        /// <param name="path">
+        /// Path to the binary file.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Throws when the path is null.
+        /// </exception>
         public BinaryBookListStorage(string path)
         {
             this.filePath = path ?? throw new ArgumentNullException();
         }
 
+        /// <inheritdoc />
         public IEnumerable<Book> GetBooks()
         {
-            if (!File.Exists(filePath)) throw new InvalidOperationException("There is not such file.");
-
+            if (!File.Exists(this.filePath))
+            {
+                throw new InvalidOperationException("There is not such file.");
+            }
+            
             List<Book> books = new List<Book>();
 
-            using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open)))
+            using (BinaryReader reader = new BinaryReader(File.Open(this.filePath, FileMode.Open)))
             {
                 while (reader.PeekChar() > -1)
                 {
@@ -38,9 +64,10 @@ namespace BooksTask
             return books;
         }
 
+        /// <inheritdoc />
         public void SaveBooks(IEnumerable<Book> books)
         {
-            using BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.Create));
+            using BinaryWriter writer = new BinaryWriter(File.Open(this.filePath, FileMode.Create));
 
             foreach (Book b in books)
             {

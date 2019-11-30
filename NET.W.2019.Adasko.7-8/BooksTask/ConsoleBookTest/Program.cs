@@ -1,18 +1,39 @@
-﻿using System;
-using BooksTask;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 namespace ConsoleBookTest
 {
-    class Program
+    using BooksTask;
+    using BooksTask.Finding;
+    using BooksTask.Sorting;
+    using BooksTask.Storage;
+
+    /// <summary>
+    /// Tests working with BookListService.
+    /// </summary>
+    public class Program
     {
-        const string storagePath = "testStorage.txt";
+        /// <summary>
+        /// Path to binary file for permanent storage of the list.
+        /// </summary>
+        private const string StoragePath = "testStorage.txt";
 
-        static void Main(string[] args)
-        {        
-            Book a = new Book("A", "B", "A", "A", 2000, 1, 1);
-            Book b = new Book("C", "C", "B", "C", 1999, 2, 2);
-            Book c = new Book("B", "A", "C", "B", 2010, 3, 3);
+        /// <summary>
+        /// Main method of the console application.
+        /// </summary>
+        /// <param name="args">
+        /// Passed parameters.
+        /// </param>
+        public static void Main(string[] args)
+        {
+            Book a = new Book("1-56389-668-0", "A", "B", "C", 1999, 123, 12);
+            Book b = new Book("5-12231-234-9", "B", "C", "A", 1990, 453, 30);
+            Book c = new Book("6-12331-454-2", "C", "A", "B", 2018, 381, 15);
 
-            BinaryBookListStorage binaryBookListStorage = new BinaryBookListStorage(storagePath);
+            BinaryBookListStorage binaryBookListStorage = new BinaryBookListStorage(StoragePath);
             BookListService bookListService = new BookListService(binaryBookListStorage);
 
             bookListService.AddBook(a);
@@ -23,11 +44,10 @@ namespace ConsoleBookTest
 
             bookListService.SortBooksByTag(new TitleBookSorting());
             bookListService.SortBooksByTag(new AuthorBookSorting());
-            bookListService.SortBooksByTag(new YearBookSorting());
+            bookListService.SortBooksByTag(new YearBookDescendingSorting());
 
-
-            //var titleResult = bookListService.FindBooksByTag(new TitleBookFinder("1"));
-            //var authorResult = bookListService.FindBooksByTag(new AuthorBookFinder("2"));
+            var titleResult = bookListService.FindBooksByTag(new TitleBookFinder("A"));
+            var authorResult = bookListService.FindBooksByTag(new AuthorBookFinder("B"));
         }
     }
 }
