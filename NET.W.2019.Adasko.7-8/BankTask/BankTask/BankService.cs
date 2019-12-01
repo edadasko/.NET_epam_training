@@ -1,32 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BankTask.Accounts;
-using BankTask.Storage;
+﻿//-----------------------------------------------------------------------
+// <copyright file="BankService.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
 namespace BankTask
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BankTask.Accounts;
+    using BankTask.Storage;
+
+    /// <summary>
+    /// Provides operations with list of bank accounts.
+    /// </summary>
     public class BankService
     {
+        /// <summary>
+        /// Permanent storage for list of bank accounts.
+        /// Should consists save and load methods.
+        /// </summary>
         private readonly IBankStorage accountsStorage;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BankService"/> class.
+        /// </summary>
+        /// <param name="storage">
+        /// Permanent storage.
+        /// </param>
         public BankService(IBankStorage storage)
         {
             this.accountsStorage = storage;
-            GetAccountsFromStorage();
+            this.GetAccountsFromStorage();
         }
 
+        /// <summary>
+        /// Gets list of books.
+        /// </summary>
         public List<BankAccount> Accounts { get; private set; }
 
-        public BankAccount this[int index] => Accounts[index];
+        /// <summary>
+        /// Gets account by index.
+        /// </summary>
+        /// <param name="index">
+        /// Index of the element in accounts list.
+        /// </param>
+        /// <returns>
+        /// Account on the passed index.
+        /// </returns>
+        public BankAccount this[int index] => this.Accounts[index];
 
+        /// <summary>
+        /// Loads accounts from the storage.
+        /// </summary>
         public void GetAccountsFromStorage() => this.Accounts = this.accountsStorage.GetAccounts().ToList();
 
+        /// <summary>
+        /// Saves accounts to the storage.
+        /// </summary>
         public void SaveAccountsToStorage() => this.accountsStorage.SaveAccounts(this.Accounts);
 
+        /// <summary>
+        /// Adds new account to the list.
+        /// </summary>
+        /// <param name="account">
+        /// Account to add.
+        /// </param>
         public void AddAccount(BankAccount account)
         {
-            if(account == null)
+            if (account == null)
             {
                 throw new ArgumentNullException();
             }
@@ -38,9 +82,15 @@ namespace BankTask
 
             this.Accounts.Add(account);
 
-            SaveAccountsToStorage();
+            this.SaveAccountsToStorage();
         }
 
+        /// <summary>
+        /// Remove account from the list.
+        /// </summary>
+        /// <param name="account">
+        /// Account to remove.
+        /// </param>
         public void RemoveAccount(BankAccount account)
         {
             if (account == null)
@@ -55,15 +105,45 @@ namespace BankTask
 
             this.Accounts.Remove(account);
 
-            SaveAccountsToStorage();
+            this.SaveAccountsToStorage();
         }
 
+        /// <summary>
+        /// Makes deposit to passed account.
+        /// </summary>
+        /// <param name="account">
+        /// Account for deposit.
+        /// </param>
+        /// <param name="value">
+        /// Value of deposit.
+        /// </param>
         public void DepositToAccount(BankAccount account, decimal value) =>
-            UpdateBalanceOfAccount(account.Deposit, account, value);
+            this.UpdateBalanceOfAccount(account.Deposit, account, value);
 
+        /// <summary>
+        /// Makes withdraw from passed account,
+        /// </summary>
+        /// <param name="account">
+        /// Account for withdraw.
+        /// </param>
+        /// <param name="value">
+        /// Value of withdraw.
+        /// </param>
         public void WithdrawFromAccount(BankAccount account, decimal value) =>
-            UpdateBalanceOfAccount(account.Withdraw, account, value);
+            this.UpdateBalanceOfAccount(account.Withdraw, account, value);
 
+        /// <summary>
+        /// Updates account balance,
+        /// </summary>
+        /// <param name="action">
+        /// Withdraw or Deposite method.
+        /// </param>
+        /// <param name="account">
+        /// Account to change.
+        /// </param>
+        /// <param name="value">
+        /// Value of changing.
+        /// </param>
         private void UpdateBalanceOfAccount(Action<decimal> action, BankAccount account, decimal value)
         {
             if (account == null)
@@ -72,7 +152,7 @@ namespace BankTask
             }
 
             action(value);
-            SaveAccountsToStorage();
+            this.SaveAccountsToStorage();
         }
     }
 }
