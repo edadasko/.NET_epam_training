@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using BankTask.Accounts;
 
 namespace BankTask.Storage
@@ -16,33 +18,18 @@ namespace BankTask.Storage
 
         public IEnumerable<BankAccount> GetAccounts()
         {
-            if (!File.Exists(this.filePath))
-            {
-                throw new InvalidOperationException("There is not such file.");
-            }
+            BinaryFormatter formatter = new BinaryFormatter();
 
-            List<BankAccount> accounts = new List<BankAccount>();
+            List<BankAccount> accounts;
 
-            using (BinaryReader reader = new BinaryReader(File.Open(this.filePath, FileMode.Open)))
+            using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
             {
-                while (reader.PeekChar() > -1)
+                if (fs.Length == 0)
                 {
-                    int id = reader.ReadInt32();
-                    string owner = reader.ReadString();
-                    decimal balance = reader.ReadDecimal();
-                    double bonus = reader.ReadDouble();
-                    int type = reader.ReadInt32();
-
-                    switch(type)
-                    {
-                        case (int)AccountType.Base:
-                            accounts.Add(new BaseBankAccount(id, owner, balance, bonus));
-                            break;
-                        case (int)AccountType.Gold:
-                            accounts.Add(new GoldBankAccount(id, owner, balance, bonus));
-                            break;
-                    }
+                    return new List<BankAccount>();
                 }
+
+                accounts = ((IEnumerable<BankAccount>)formatter.Deserialize(fs)).ToList();
             }
 
             return accounts;
@@ -50,15 +37,10 @@ namespace BankTask.Storage
 
         public void SaveAccounts(IEnumerable<BankAccount> accounts)
         {
-            using BinaryWriter writer = new BinaryWriter(File.Open(this.filePath, FileMode.Create));
-
-            foreach (var acc in accounts)
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
             {
-                writer.Write(acc.Id);
-                writer.Write(acc.OwnerName);
-                writer.Write(acc.Balance);
-                writer.Write(acc.BonusPoints);
-                writer.Write((int)acc.AccountType);
+                formatter.Serialize(fs, accounts);
             }
         }
     }

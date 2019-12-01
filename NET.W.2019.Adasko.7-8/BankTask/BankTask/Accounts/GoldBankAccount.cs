@@ -1,17 +1,16 @@
 ﻿using System;
 namespace BankTask.Accounts
 {
+    [Serializable]
     public class GoldBankAccount : BankAccount
     {
         public GoldBankAccount(int id, string name) : base(id, name)
         {
-            AccountType = AccountType.Gold;
         }
 
         public GoldBankAccount(int id, string name, decimal balance, double bonusPoints)
             : base(id, name, balance, bonusPoints)
         {
-            AccountType = AccountType.Gold;
         }
 
         public override double DepositBalanceCoefficient => 0.5;

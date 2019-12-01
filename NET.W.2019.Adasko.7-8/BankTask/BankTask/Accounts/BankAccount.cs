@@ -1,24 +1,20 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BankTask.Accounts
 {
-    public enum AccountType
-    {
-        Base,
-        Gold
-    }
-
-    public abstract class BankAccount
+    [Serializable]
+    public abstract class BankAccount : IEquatable<BankAccount>, IComparable<BankAccount>
     {
         #region fields
 
-        protected int id;
+        private int id;
 
-        protected string ownerName;
+        private string ownerName;
 
-        protected decimal balance;
+        private decimal balance;
 
-        protected double bonusPoints;
+        private double bonusPoints;
 
         #endregion
 
@@ -40,9 +36,7 @@ namespace BankTask.Accounts
 
         #region properties
 
-        public AccountType AccountType { get; set; }
-
-        public int Id
+        public virtual int Id
         {
             get => id;
 
@@ -58,7 +52,7 @@ namespace BankTask.Accounts
 
         }
 
-        public string OwnerName
+        public virtual string OwnerName
         {
             get => ownerName;
 
@@ -115,12 +109,71 @@ namespace BankTask.Accounts
 
         #endregion
 
-        public virtual void Deposit(int value) => Balance += value;
+        public virtual void Deposit(decimal value)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Your balance before deposit: {this.Balance}");
+            Balance += value;
+            Console.WriteLine($"Your balance after deposit: {this.Balance}");
+        } 
 
-        public virtual void Withdraw(int value) => Balance -= value;
+        public virtual void Withdraw(decimal value)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Your balance before withdraw: {this.Balance}");
+            Balance -= value;
+            Console.WriteLine($"Your balance after withdraw: {this.Balance}");
+        }
 
         public void AddBonusPoints(double value) => BonusPoints += value;
 
         public void RemoveBonusPoints(double value) => BonusPoints -= value;
+
+        #region Object's methods
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj is BankAccount account)
+            {
+                return this.Equals(account);
+            }
+            return false;
+        }
+
+        public override int GetHashCode() => this.Id.GetHashCode();
+
+        public override string ToString() => string.Join(' ', Id.ToString(), OwnerName);
+
+        #endregion
+
+        public bool Equals(BankAccount other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Id == other.Id;
+        }
+
+        public int CompareTo(BankAccount other)
+        {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return this.id.CompareTo(other.id);
+        }
     }
 }
