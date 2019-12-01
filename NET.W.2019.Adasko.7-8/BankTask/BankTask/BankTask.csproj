@@ -7,5 +7,6 @@
   <ItemGroup>
     <Folder Include="Accounts\" />
     <Folder Include="BonusProgram\" />
+    <Folder Include="Storage\" />
   </ItemGroup>
 </Project>

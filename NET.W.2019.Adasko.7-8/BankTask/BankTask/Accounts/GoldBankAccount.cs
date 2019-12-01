@@ -3,12 +3,15 @@ namespace BankTask.Accounts
 {
     public class GoldBankAccount : BankAccount
     {
-        public GoldBankAccount(int id, string name)
+        public GoldBankAccount(int id, string name) : base(id, name)
         {
-            this.id = id;
-            this.onwerName = name;
-            balance = 0;
-            bonusPoints = 0;
+            AccountType = AccountType.Gold;
+        }
+
+        public GoldBankAccount(int id, string name, decimal balance, double bonusPoints)
+            : base(id, name, balance, bonusPoints)
+        {
+            AccountType = AccountType.Gold;
         }
 
         public override double DepositBalanceCoefficient => 0.5;

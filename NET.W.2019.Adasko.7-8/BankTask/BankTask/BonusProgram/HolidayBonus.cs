@@ -5,8 +5,10 @@ namespace BankTask.BonusProgram
 {
     public class HolidayBonus : AccountBonusDecorator
     {
-        private const string Congrats = "Happy Holydays!";
+        private const string Congrats = "Happy Holidays!";
 
+        private const double DepositBonus = 1.2;
+        private const double WithdrawBonus = 0.8;
 
         public HolidayBonus(BankAccount account) : base(account) { }
 
@@ -14,7 +16,7 @@ namespace BankTask.BonusProgram
         {
             PrintCongrats();
 
-            account.AddBonusPoints(1.2 *
+            account.AddBonusPoints(DepositBonus *
                 DepositBalanceCoefficient * (double)account.Balance +
                 DepositValueCoefficient * value);
 
@@ -25,7 +27,7 @@ namespace BankTask.BonusProgram
         {
             PrintCongrats();
 
-            account.RemoveBonusPoints(0.8 *
+            account.RemoveBonusPoints(WithdrawBonus *
                 WithdrawBalanceCoefficient * (double)account.Balance +
                 WithdrawValueCoefficient * value);
 

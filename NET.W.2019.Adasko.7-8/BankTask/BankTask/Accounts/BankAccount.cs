@@ -2,13 +2,19 @@
 
 namespace BankTask.Accounts
 {
+    public enum AccountType
+    {
+        Base,
+        Gold
+    }
+
     public abstract class BankAccount
     {
         #region fields
 
         protected int id;
 
-        protected string onwerName;
+        protected string ownerName;
 
         protected decimal balance;
 
@@ -16,7 +22,56 @@ namespace BankTask.Accounts
 
         #endregion
 
+        protected BankAccount() { }
+
+        protected BankAccount(int id, string name)
+        {
+            this.Id = id;
+            this.OwnerName = name;
+            this.Balance = 0;
+            this.BonusPoints = 0;
+        }
+
+        protected BankAccount(int id, string name, decimal balance, double bonusPoints) : this(id, name)
+        {
+            this.Balance = balance;
+            this.BonusPoints = bonusPoints;
+        }
+
         #region properties
+
+        public AccountType AccountType { get; set; }
+
+        public int Id
+        {
+            get => id;
+
+            private set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException();
+                }
+
+                id = value;
+            }
+
+        }
+
+        public string OwnerName
+        {
+            get => ownerName;
+
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException();
+                }
+
+                ownerName = value;
+            }
+        }
 
         public virtual decimal Balance
         {
