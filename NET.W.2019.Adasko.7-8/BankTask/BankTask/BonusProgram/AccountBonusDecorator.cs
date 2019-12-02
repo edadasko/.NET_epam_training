@@ -55,7 +55,7 @@ namespace BankTask.BonusProgram
         /// <summary>
         /// Gets or sets account to decorate.
         /// </summary>
-        protected BankAccount Account { get; set; }
+        public BankAccount Account { get; protected set; }
 
         /// <summary>
         /// Determines how deposit bonuses will be calculated.
@@ -112,5 +112,11 @@ namespace BankTask.BonusProgram
             this.Account.RemoveBonusPoints(bonusPoints);
             Console.WriteLine($"Your bonus points after withdraw: {this.BonusPoints}");
         }
+
+        /// <inheritdoc/>
+        public override void AddBonusPoints(double value) => this.Account.AddBonusPoints(value);
+
+        /// <inheritdoc/>
+        public override void RemoveBonusPoints(double value) => this.Account.RemoveBonusPoints(value);
     }
 }

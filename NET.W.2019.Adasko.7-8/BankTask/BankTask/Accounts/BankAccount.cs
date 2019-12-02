@@ -225,7 +225,7 @@ namespace BankTask.Accounts
         /// <param name="value">
         /// Value for increasing.
         /// </param>
-        public void AddBonusPoints(double value) => this.BonusPoints += value;
+        public virtual void AddBonusPoints(double value) => this.BonusPoints += value;
 
         /// <summary>
         /// Decreases bonus points of the account.
@@ -233,7 +233,7 @@ namespace BankTask.Accounts
         /// <param name="value">
         /// Value for decreasing.
         /// </param>
-        public void RemoveBonusPoints(double value) => this.BonusPoints -= value;
+        public virtual void RemoveBonusPoints(double value) => this.BonusPoints -= value;
 
         #endregion
 

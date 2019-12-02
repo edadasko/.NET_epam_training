@@ -32,9 +32,16 @@ namespace ConsoleBankTest
         {
             BankService bankService = new BankService(new BinaryBankStorage(FilePath));
 
-            // Init(bankService);
+            Init(bankService);
+
             bankService.DepositToAccount(bankService[0], 1000);
             bankService.WithdrawFromAccount(bankService[0], 100);
+
+            bankService.RemoveAllBonusPrograms(bankService[0]);
+
+            bankService.DepositToAccount(bankService[0], 1000);
+            bankService.WithdrawFromAccount(bankService[0], 100);
+
             bankService.DepositToAccount(bankService[1], 1000);
             bankService.WithdrawFromAccount(bankService[1], 100);
         }
@@ -49,6 +56,7 @@ namespace ConsoleBankTest
         {
             BankAccount account1 = new BaseBankAccount(1, "Eduard Adasko");
             account1 = new BaseBonus(account1);
+            account1 = new HolidayBonus(account1);
 
             BankAccount account2 = new GoldBankAccount(2, "Polina Ushakova");
             account2 = new HolidayBonus(account2);

@@ -11,6 +11,7 @@ namespace BankTask
     using System.Collections.Generic;
     using System.Linq;
     using BankTask.Accounts;
+    using BankTask.BonusProgram;
     using BankTask.Storage;
 
     /// <summary>
@@ -104,6 +105,34 @@ namespace BankTask
             }
 
             this.Accounts.Remove(account);
+
+            this.SaveAccountsToStorage();
+        }
+
+        /// <summary>
+        /// Removes all decorators from account.
+        /// </summary>
+        /// <param name="acc">
+        /// Account to remove decorators.
+        /// </param>
+        public void RemoveAllBonusPrograms(BankAccount acc)
+        {
+            if (acc == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (!this.Accounts.Contains(acc))
+            {
+                throw new ArgumentException("There is not such account.");
+            }
+
+            while (acc is AccountBonusDecorator decAccount)
+            {
+                acc = decAccount.Account;
+            }
+
+            this.Accounts[this.Accounts.IndexOf(acc)] = acc;
 
             this.SaveAccountsToStorage();
         }
