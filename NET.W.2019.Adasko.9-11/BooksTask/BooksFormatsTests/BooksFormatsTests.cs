@@ -6,10 +6,10 @@
 //-----------------------------------------------------------------------
 namespace BooksFormatsTests
 {
-    using NUnit.Framework;
-    using BooksTask;
-    using System.Globalization;
     using System;
+    using System.Globalization;
+    using BooksTask;
+    using NUnit.Framework;
 
     /// <summary>
     /// Provides tests for string representations of books.
@@ -42,7 +42,7 @@ namespace BooksFormatsTests
         [TestCase("aTHyNC", "Jeffrey Richter, CLR via C#, Microsoft Press, 2012, P. 826, $59.99")]
         public void ToStringTest(string format, string expected)
         {
-            string result = string.Format(provider, "{0:" + format + "}", book);
+            string result = string.Format(this.provider, "{0:" + format + "}", this.book);
             Assert.AreEqual(expected, result);
         }
 
@@ -52,7 +52,7 @@ namespace BooksFormatsTests
         [Test]
         public void ToStringFormatExceptionTest()
         {
-            Assert.Throws<FormatException>(() => string.Format(provider, "{0: fewwfw}", book));
+            Assert.Throws<FormatException>(() => string.Format(this.provider, "{0: fewwfw}", this.book));
         }
     }
 }
