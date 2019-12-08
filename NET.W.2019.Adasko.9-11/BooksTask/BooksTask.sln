@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksTask", "BooksTask\BooksTask.csproj", "{C64C862E-3A42-4463-BFC0-FFEDA3E2CFA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksFormatsTests", "BooksFormatsTests\BooksFormatsTests.csproj", "{9E302A22-95B8-4A81-9308-BF57DCD92809}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C64C862E-3A42-4463-BFC0-FFEDA3E2CFA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C64C862E-3A42-4463-BFC0-FFEDA3E2CFA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C64C862E-3A42-4463-BFC0-FFEDA3E2CFA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C64C862E-3A42-4463-BFC0-FFEDA3E2CFA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E302A22-95B8-4A81-9308-BF57DCD92809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E302A22-95B8-4A81-9308-BF57DCD92809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E302A22-95B8-4A81-9308-BF57DCD92809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E302A22-95B8-4A81-9308-BF57DCD92809}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
