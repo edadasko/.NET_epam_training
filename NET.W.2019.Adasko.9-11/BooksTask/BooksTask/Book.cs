@@ -358,6 +358,9 @@ namespace BooksTask
                     case 'Y':
                         outputProperties.Add(this.YearOfPublishing);
                         break;
+                    case 'I':
+                        outputProperties.Add(this.ISBN);
+                        break;
                     default:
                         throw new FormatException();
                 }

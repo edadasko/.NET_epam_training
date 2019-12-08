@@ -22,6 +22,11 @@ namespace BooksFormatsTests
         private readonly IFormatProvider provider = CultureInfo.CreateSpecificCulture("en");
 
         /// <summary>
+        /// Custom formatter.
+        /// </summary>
+        private readonly BookCustomFormatting customProvider = new BookCustomFormatting(CultureInfo.CreateSpecificCulture("en"));
+
+        /// <summary>
         /// Book to convert.
         /// </summary>
         private readonly Book book = new Book("978-0-7356-6754-7", "Jeffrey Richter", "CLR via C#", "Microsoft Press", 2012, 826, 59.99M);
@@ -54,5 +59,19 @@ namespace BooksFormatsTests
         {
             Assert.Throws<FormatException>(() => string.Format(this.provider, "{0: fewwfw}", this.book));
         }
+
+        /// <summary>
+        /// Tests additional formats provided by BookCustomFormatting.
+        /// </summary>
+        /// <param name="format">
+        /// Format to convert.
+        /// </param>
+        /// <returns>
+        /// Expected result.
+        /// </returns>
+        [TestCase("full", ExpectedResult = "Jeffrey Richter, CLR via C#, Microsoft Press, 2012, P. 826, $59.99, 978-0-7356-6754-7")]
+        [TestCase("short", ExpectedResult = "Jeffrey Richter, CLR via C#, 2012")]
+        public string CustomFormattingTest(string format) =>
+            string.Format(this.customProvider, "{0:" + format + "}", this.book);
     }
 }
