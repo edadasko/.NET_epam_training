@@ -1,42 +1,83 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿//-----------------------------------------------------------------------
+// <copyright file="BinarySearchTree.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
 namespace BST_Task
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Represents generic binary search tree and provides operations for working with it.
+    /// </summary>
+    /// <typeparam name="T">Type of nodes values.</typeparam>
     public class BinarySearchTree<T> : IEnumerable<T>
     {
-        private Node<T> root;
-
+        /// <summary>
+        /// Comparer for nodes collocation.
+        /// </summary>
         private readonly IComparer<T> comparer;
 
+        /// <summary>
+        /// Root of a tree.
+        /// </summary>
+        private Node<T> root;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BinarySearchTree{T}"/> class.
+        /// </summary>
         public BinarySearchTree()
         {
             this.root = null;
             this.comparer = Comparer<T>.Default;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BinarySearchTree{T}"/> class.
+        /// </summary>
+        /// <param name="comparer">Comparer for tree nodes.</param>
         public BinarySearchTree(IComparer<T> comparer)
         {
             this.root = null;
             this.comparer = comparer;
         }
 
+        /// <summary>
+        /// Inserts a new node to a tree.
+        /// </summary>
+        /// <param name="value">Value to insert.</param>
         public void Insert(T value)
         {
-            if (root == null)
+            if (this.root == null)
             {
-                root = new Node<T>(value);
+                this.root = new Node<T>(value);
                 return;
             }
 
-            this.Insert(value, root);
+            this.Insert(value, this.root);
         }
 
-        public void Remove(T value) => Remove(value, root);
+        /// <summary>
+        /// Removes a value from a tree.
+        /// </summary>
+        /// <param name="value">Value to remove.</param>
+        public void Remove(T value) => this.Remove(value, this.root);
 
-        public bool Find(T value) => Find(value, root);
+        /// <summary>
+        /// Finds value in a tree.
+        /// </summary>
+        /// <param name="value">Value for searching.</param>
+        /// <returns>Is there element in a tree.</returns>
+        public bool Find(T value) => this.Find(value, this.root);
 
+        /// <summary>
+        /// In order traversal.
+        /// </summary>
+        /// <returns>IEnumerable for in order iterating.</returns>
         public IEnumerable<T> InOrder()
         {
             if (this.root == null)
@@ -47,6 +88,10 @@ namespace BST_Task
             return this.InOrder(this.root);
         }
 
+        /// <summary>
+        /// Post order traversal.
+        /// </summary>
+        /// <returns>IEnumerable for post order iterating.</returns>
         public IEnumerable<T> PostOrder()
         {
             if (this.root == null)
@@ -57,6 +102,10 @@ namespace BST_Task
             return this.PostOrder(this.root);
         }
 
+        /// <summary>
+        /// Pre order traversal.
+        /// </summary>
+        /// <returns>IEnumerable for pre order iterating.</returns>
         public IEnumerable<T> PreOrder()
         {
             if (this.root == null)
@@ -67,9 +116,21 @@ namespace BST_Task
             return this.PreOrder(this.root);
         }
 
+        /// <inheritdoc/>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this.InOrder().GetEnumerator();
+        }
+
+        /// <inheritdoc/>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.InOrder().GetEnumerator();
+        }
+
         private void Insert(T value, Node<T> node)
         {
-            if (comparer.Compare(value, node.Value) > 0)
+            if (this.comparer.Compare(value, node.Value) > 0)
             {
                 if (node.Right == null)
                 {
@@ -80,7 +141,7 @@ namespace BST_Task
                     return;
                 }
 
-                Insert(value, node.Right);
+                this.Insert(value, node.Right);
             }
             else
             {
@@ -93,7 +154,7 @@ namespace BST_Task
                     return;
                 }
 
-                Insert(value, node.Left);
+                this.Insert(value, node.Left);
             }
         }
 
@@ -164,6 +225,7 @@ namespace BST_Task
             node.Value = leftMost;
             Remove(leftMost, node.Right);
 
+            
             static T FindLeft(Node<T> node)
             {
                 if (node.Left != null)
@@ -178,19 +240,21 @@ namespace BST_Task
         private bool Find(T value, Node<T> currentNode)
         {
             if (currentNode == null)
+            {
                 return false;
+            }
 
-            if (comparer.Compare(value, currentNode.Value) == 0)
+            if (this.comparer.Compare(value, currentNode.Value) == 0)
             {
                 return true;
             }
 
-            if (comparer.Compare(value, currentNode.Value) > 0)
+            if (this.comparer.Compare(value, currentNode.Value) > 0)
             {
-                return Find(value, currentNode.Right);
+                return this.Find(value, currentNode.Right);
             }
 
-            return Find(value, currentNode.Left);
+            return this.Find(value, currentNode.Left);
         }
 
         private IEnumerable<T> InOrder(Node<T> node)
@@ -254,16 +318,6 @@ namespace BST_Task
                     yield return elem;
                 }
             }
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return this.InOrder().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.InOrder().GetEnumerator();
         }
     }
 }

@@ -1,36 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using BST_Task;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
+
 namespace ConsoleTreeTest
 {
-    class Program
+    using System;
+    using BST_Task;
+
+    /// <summary>
+    /// Tests binary search tree.
+    /// </summary>
+    public class Program
     {
-        public struct Point
-        {
-            public int a;
-            public int b;
-
-            public Point(int a, int b)
-            {
-                this.a = a;
-                this.b = b;
-            }
-
-            public override string ToString()
-            {
-                return "(" + a + ", " + b + ")";
-            }
-        }
-
-        public class PointComparer : IComparer<Point>
-        {
-            public int Compare(Point x, Point y)
-                => VectorLength(x).CompareTo(VectorLength(y));
-
-            private double VectorLength(Point p) => Math.Sqrt(p.a * p.a + p.b * p.b);
-        }
-
-        static void Main(string[] args)
+        /// <summary>
+        /// Tests operations with BST of different types.
+        /// </summary>
+        public static void Main()
         {
             BinarySearchTree<int> intBST = new BinarySearchTree<int>();
 
