@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using BLL.Interface.Interfaces;
 
 namespace BLL.Interface.Entities
 {
@@ -28,6 +29,8 @@ namespace BLL.Interface.Entities
         /// </summary>
         private double bonusPoints;
 
+        private IAccountBonus bonusProgram;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BankAccount"/> class.
         /// </summary>
@@ -50,6 +53,20 @@ namespace BLL.Interface.Entities
             this.OwnerName = name;
             this.Balance = 0;
             this.BonusPoints = 0;
+            this.bonusProgram = null;
+        }
+
+        protected BankAccount(int id, string name, BonusType? bonusProgram) : this(id, name)
+        {
+            if (bonusProgram != null)
+            {
+                this.bonusProgram = bonusProgram switch
+                {
+                    BonusType.Base => new BaseAccountBonus(this),
+                    BonusType.Extra => new ExtraAccountBonus(this),
+                    _ => null,
+                };
+            }
         }
 
         /// <summary>
@@ -67,7 +84,8 @@ namespace BLL.Interface.Entities
         /// <param name="bonusPoints">
         /// Bonus points value.
         /// </param>
-        protected BankAccount(int id, string name, decimal balance, double bonusPoints) : this(id, name)
+        protected BankAccount(int id, string name, decimal balance, double bonusPoints, BonusType? bonusProgram)
+            : this(id, name, bonusProgram)
         {
             this.Balance = balance;
             this.BonusPoints = bonusPoints;
@@ -109,7 +127,7 @@ namespace BLL.Interface.Entities
             }
         }
 
-        /// <summary>
+        /// <summary>s
         /// Gets and sets Balance.
         /// </summary>
         public virtual decimal Balance
@@ -127,10 +145,41 @@ namespace BLL.Interface.Entities
             }
         }
 
+        public AccountType? GetAccountType()
+        {
+            if (this is BaseBankAccount)
+            {
+                return AccountType.Base;
+            }
+            else if (this is SilverBankAccount)
+            {
+                return AccountType.Silver;
+            }
+            else if (this is GoldBankAccount)
+            {
+                return AccountType.Gold;
+            }
+
+            return null;
+        }
+
+        public BonusType? GetBonusType()
+        {
+            if (this.bonusProgram is BaseAccountBonus)
+            {
+                return BonusType.Base;
+            }
+            else if (this.bonusProgram is ExtraAccountBonus)
+            {
+                return BonusType.Extra;
+            }
+
+            return null;
+        }
         /// <summary>
         /// Gets and sets Bonus points.
         /// </summary>
-        public virtual double BonusPoints
+        public double BonusPoints
         {
             get => this.bonusPoints;
 
@@ -179,6 +228,12 @@ namespace BLL.Interface.Entities
         /// </param>
         public virtual void Deposit(decimal value)
         {
+            if (this.bonusProgram != null)
+            {
+                double points = this.bonusProgram.GetDepositBonus(value);
+                this.BonusPoints += points;
+            }
+
             this.Balance += value;
         }
 
@@ -190,24 +245,13 @@ namespace BLL.Interface.Entities
         /// </param>
         public virtual void Withdraw(decimal value)
         {
+            if (this.bonusProgram != null)
+            {
+                double points = this.bonusProgram.GetWithdrawBonus(value);
+                this.BonusPoints -= points;
+            }
             this.Balance -= value;
         }
-
-        /// <summary>
-        /// Increases bonus points of the account.
-        /// </summary>
-        /// <param name="value">
-        /// Value for increasing.
-        /// </param>
-        public virtual void AddBonusPoints(double value) => this.BonusPoints += value;
-
-        /// <summary>
-        /// Decreases bonus points of the account.
-        /// </summary>
-        /// <param name="value">
-        /// Value for decreasing.
-        /// </param>
-        public virtual void RemoveBonusPoints(double value) => this.BonusPoints -= value;
 
         /// <inheritdoc/> 
         public override bool Equals(object obj)

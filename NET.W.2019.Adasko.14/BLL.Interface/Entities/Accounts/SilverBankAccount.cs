@@ -4,7 +4,6 @@ namespace BLL.Interface.Entities
     /// <summary>
     /// Gold bank account class with increased bonus coefficients.
     /// </summary>
-    [Serializable]
     public class SilverBankAccount : BankAccount
     {
         /// <summary>
@@ -35,11 +34,15 @@ namespace BLL.Interface.Entities
         /// <param name="bonusPoints">
         /// Bonus points value.
         /// </param>
-        public SilverBankAccount(int id, string name, decimal balance, double bonusPoints)
-            : base(id, name, balance, bonusPoints)
+        public SilverBankAccount(int id, string name, decimal balance, double bonusPoints, BonusType? bonusProgram)
+            : base(id, name, balance, bonusPoints, bonusProgram)
         {
         }
 
+        protected SilverBankAccount(int id, string name, BonusType? bonusProgram)
+            : base(id, name, bonusProgram)
+        {
+        }
         /// <inheritdoc/> 
         public override double DepositBalanceCoefficient => 0.5;
 

@@ -43,8 +43,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\IAccountNumberCreateService.cs" />
-    <Compile Include="Entities\AccountType.cs" />
-    <Compile Include="Entities\BonusType.cs" />
     <Compile Include="Entities\Accounts\BankAccount.cs" />
     <Compile Include="Entities\Accounts\BaseBankAccount.cs" />
     <Compile Include="Entities\Accounts\GoldBankAccount.cs" />
@@ -52,12 +50,15 @@
     <Compile Include="Entities\Bonuses\BaseAccountBonus.cs" />
     <Compile Include="Entities\Bonuses\ExtraAccountBonus.cs" />
     <Compile Include="Interfaces\IAccountBonus.cs" />
+    <Compile Include="Entities\Enums\AccountType.cs" />
+    <Compile Include="Entities\Enums\BonusType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Entities\Accounts\" />
     <Folder Include="Entities\Bonuses\" />
+    <Folder Include="Entities\Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

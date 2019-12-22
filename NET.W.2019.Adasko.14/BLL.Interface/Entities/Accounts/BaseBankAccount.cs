@@ -4,7 +4,6 @@ namespace BLL.Interface.Entities
     /// <summary>
     /// Base bank account class with standart bonus coefficients.
     /// </summary>
-    [Serializable]
     public class BaseBankAccount : BankAccount
     {
         /// <summary>
@@ -35,8 +34,13 @@ namespace BLL.Interface.Entities
         /// <param name="bonusPoints">
         /// Bonus points value.
         /// </param>
-        public BaseBankAccount(int id, string name, decimal balance, double bonusPoints)
-            : base(id, name, balance, bonusPoints)
+        public BaseBankAccount(int id, string name, decimal balance, double bonusPoints, BonusType? bonusProgram)
+            : base(id, name, balance, bonusPoints, bonusProgram)
+        {
+        }
+
+        protected BaseBankAccount(int id, string name, BonusType? bonusProgram)
+            : base(id, name, bonusProgram)
         {
         }
 

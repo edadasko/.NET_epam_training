@@ -7,6 +7,7 @@ namespace BLL.ServiceImplementation
     using System.Collections.Generic;
     using System.Linq;
     using BLL.Interface.Entities;
+    using DAL.Interface.Interfaces;
 
     /// <summary>
     /// Provides operations with list of bank accounts.
@@ -17,7 +18,7 @@ namespace BLL.ServiceImplementation
         /// Permanent storage for list of bank accounts.
         /// Should consists save and load methods.
         /// </summary>
-        private readonly IBankStorage accountsStorage;
+        private readonly IAccountRepository accountsStorage;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountService"/> class.
@@ -25,7 +26,7 @@ namespace BLL.ServiceImplementation
         /// <param name="storage">
         /// Permanent storage.
         /// </param>
-        public AccountService(IBankStorage storage)
+        public AccountService(IAccountRepository storage)
         {
             this.accountsStorage = storage;
             this.GetAllAccounts();

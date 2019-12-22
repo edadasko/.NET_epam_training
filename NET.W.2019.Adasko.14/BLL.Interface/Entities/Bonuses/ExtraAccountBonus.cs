@@ -1,41 +1,38 @@
 ﻿using System;
+using BLL.Interface.Interfaces;
+
 namespace BLL.Interface.Entities
 {
     /// <summary>
-    /// Extra bonus decorator class.
+    /// Extra bonus class.
     /// Provides additional logic of changing bonus points.
     /// </summary>
-    [Serializable]
-    public class ExtraAccountBonus : AccountBonusDecorator
+    public class ExtraAccountBonus : IAccountBonus
     {
+        public BankAccount Account { get; set; }
+
+        public ExtraAccountBonus(BankAccount account)
+        {
+            this.Account = account;
+        }
         /// <summary>
         /// Additional deposit bonus.
         /// </summary>
-        private const double DepositBonus = 1.2;
+        private const double ExtraDepositBonus = 1.2;
 
         /// <summary>
         /// Additional withdraw bonus.
         /// </summary>
-        private const double WithdrawBonus = 0.8;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExtraAccountBonus"/> class.
-        /// </summary>
-        /// <param name="account">
-        /// Account to decorate.
-        /// </param>
-        public ExtraAccountBonus(BankAccount account) : base(account)
-        {
-        }
+        private const double ExtraWithdrawBonus = 0.8;
 
         /// <inheritdoc/>
-        public override double GetDepositBonus(decimal value) =>
-            (DepositBonus * this.DepositBalanceCoefficient * (double)this.Account.Balance) +
-                (this.DepositValueCoefficient * (double)value);
+        public double GetDepositBonus(decimal value) =>
+            (ExtraDepositBonus * this.Account.DepositBalanceCoefficient * (double)this.Account.Balance) +
+                (this.Account.DepositValueCoefficient * (double)value);
 
         /// <inheritdoc/>
-        public override double GetWithdrawBonus(decimal value) =>
-            (WithdrawBonus * this.WithdrawBalanceCoefficient * (double)this.Account.Balance) +
-                (this.WithdrawValueCoefficient * (double)value);
+        public double GetWithdrawBonus(decimal value) =>
+            (ExtraWithdrawBonus * this.Account.WithdrawBalanceCoefficient * (double)this.Account.Balance) +
+                (this.Account.WithdrawValueCoefficient * (double)value);
     }
 }
