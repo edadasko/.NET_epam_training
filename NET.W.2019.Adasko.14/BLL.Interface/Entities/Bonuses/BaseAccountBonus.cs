@@ -1,4 +1,6 @@
 ﻿using System;
+using BLL.Interface.Interfaces;
+
 namespace BLL.Interface.Entities
 {
     /// <summary>
@@ -6,18 +8,8 @@ namespace BLL.Interface.Entities
     /// Provides standard logic of changing bonus points.
     /// </summary>
     [Serializable]
-    public class BaseAccountBonus : AccountBonusDecorator
+    public class BaseAccountBonus : IAccountBonus
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseAccountBonus"/> class.
-        /// </summary>
-        /// <param name="account">
-        /// Account to decorate.
-        /// </param>
-        public BaseAccountBonus(BankAccount account) : base(account)
-        {
-        }
-
         /// <inheritdoc/>
         public override double GetDepositBonus(decimal value) =>
             (this.DepositBalanceCoefficient * (double)this.Account.Balance) +

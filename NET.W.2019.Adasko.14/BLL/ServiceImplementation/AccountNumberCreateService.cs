@@ -1,10 +1,10 @@
 ﻿using System;
+using BLL.Interface.Interfaces;
+
 namespace BLL.ServiceImplementation
 {
-    public class AccountNumberCreateService : Ia
+    public class AccountNumberCreateService : IAccountNumberCreateService
     {
-        public AccountNumberCreateService()
-        {
-        }
+        public int CreateId() => Guid.NewGuid().GetHashCode();
     }
 }

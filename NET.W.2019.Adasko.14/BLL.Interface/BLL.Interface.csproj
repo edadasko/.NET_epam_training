@@ -49,9 +49,9 @@
     <Compile Include="Entities\Accounts\BaseBankAccount.cs" />
     <Compile Include="Entities\Accounts\GoldBankAccount.cs" />
     <Compile Include="Entities\Accounts\SilverBankAccount.cs" />
-    <Compile Include="Entities\Bonuses\AccountBonusDecorator.cs" />
     <Compile Include="Entities\Bonuses\BaseAccountBonus.cs" />
     <Compile Include="Entities\Bonuses\ExtraAccountBonus.cs" />
+    <Compile Include="Interfaces\IAccountBonus.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
