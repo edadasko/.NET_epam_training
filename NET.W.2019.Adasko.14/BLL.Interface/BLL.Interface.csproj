@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -41,10 +41,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Interfaces\IAccountService.cs" />
+    <Compile Include="Interfaces\IAccountNumberCreateService.cs" />
+    <Compile Include="Entities\AccountType.cs" />
+    <Compile Include="Entities\BonusType.cs" />
+    <Compile Include="Entities\Accounts\BankAccount.cs" />
+    <Compile Include="Entities\Accounts\BaseBankAccount.cs" />
+    <Compile Include="Entities\Accounts\GoldBankAccount.cs" />
+    <Compile Include="Entities\Accounts\SilverBankAccount.cs" />
+    <Compile Include="Entities\Bonuses\AccountBonusDecorator.cs" />
+    <Compile Include="Entities\Bonuses\BaseAccountBonus.cs" />
+    <Compile Include="Entities\Bonuses\ExtraAccountBonus.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Entities\Accounts\" />
+    <Folder Include="Entities\Bonuses\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
