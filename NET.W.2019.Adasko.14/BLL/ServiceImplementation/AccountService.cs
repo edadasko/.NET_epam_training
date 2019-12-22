@@ -71,13 +71,13 @@ namespace BLL.ServiceImplementation
             switch(accountType)
             {
                 case AccountType.Base:
-                    newAccount = new BaseBankAccount(id, name);
+                    newAccount = new BaseBankAccount(id, name, bonusType);
                     break;
                 case AccountType.Silver:
-                    newAccount = new SilverBankAccount(id, name);
+                    newAccount = new SilverBankAccount(id, name, bonusType);
                     break;
                 case AccountType.Gold:
-                    newAccount = new GoldBankAccount(id, name);
+                    newAccount = new GoldBankAccount(id, name, bonusType);
                     break;
             }
 
@@ -88,7 +88,7 @@ namespace BLL.ServiceImplementation
 
         public void CloseAccount(int creditNumber)
         {
-            BankAccount acc = this.Accounts.Find(acc => acc.AccountNumber == creditNumber);
+            BankAccount acc = this.Accounts.Find(a => a.AccountNumber == creditNumber);
             if (acc != null)
             {
                 this.Accounts.Remove(acc);

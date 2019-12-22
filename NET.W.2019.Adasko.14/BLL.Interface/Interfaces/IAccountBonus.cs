@@ -4,7 +4,7 @@ namespace BLL.Interface.Interfaces
 {
     public interface IAccountBonus
     {
-        public BankAccount Account { get; set; }
+        BankAccount Account { get; set; }
 
         double GetDepositBonus(decimal value);
 

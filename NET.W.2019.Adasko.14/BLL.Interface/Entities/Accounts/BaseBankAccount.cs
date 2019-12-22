@@ -39,7 +39,7 @@ namespace BLL.Interface.Entities
         {
         }
 
-        protected BaseBankAccount(int id, string name, BonusType? bonusProgram)
+        public BaseBankAccount(int id, string name, BonusType? bonusProgram)
             : base(id, name, bonusProgram)
         {
         }

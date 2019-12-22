@@ -8,31 +8,35 @@ namespace BLL.Mappers
     {
         public static BankAccount ConvertToBankAccount(this DTO_BankAccount dtoAccount)
         {
-            return dtoAccount.AccountType switch
+            switch(dtoAccount.AccountType)
             {
-                AccountType.Base => new BaseBankAccount(
+                case AccountType.Base:
+                    return new BaseBankAccount(
                        dtoAccount.AccountNumber,
                        dtoAccount.OwnerName,
                        dtoAccount.Balance,
                        dtoAccount.BonusPoints,
-                       dtoAccount.BonusType),
+                       dtoAccount.BonusType);
 
-                AccountType.Gold => new GoldBankAccount(
+                case AccountType.Gold:
+                    return new GoldBankAccount(
                         dtoAccount.AccountNumber,
                         dtoAccount.OwnerName,
                         dtoAccount.Balance,
                         dtoAccount.BonusPoints,
-                        dtoAccount.BonusType),
+                        dtoAccount.BonusType);
 
-                AccountType.Silver => new SilverBankAccount(
+                case AccountType.Silver:
+                    return new SilverBankAccount(
                         dtoAccount.AccountNumber,
                         dtoAccount.OwnerName,
                         dtoAccount.Balance,
                         dtoAccount.BonusPoints,
-                        dtoAccount.BonusType),
+                        dtoAccount.BonusType);
+                default:
+                    return null;
+            }
 
-                _ => null,
-            };
         }
 
         public static DTO_BankAccount ConvertToDTO(this BankAccount account)

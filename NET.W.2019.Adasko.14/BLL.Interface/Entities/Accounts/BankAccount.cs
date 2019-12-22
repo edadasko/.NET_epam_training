@@ -60,12 +60,18 @@ namespace BLL.Interface.Entities
         {
             if (bonusProgram != null)
             {
-                this.bonusProgram = bonusProgram switch
+                switch(bonusProgram)
                 {
-                    BonusType.Base => new BaseAccountBonus(this),
-                    BonusType.Extra => new ExtraAccountBonus(this),
-                    _ => null,
-                };
+                    case BonusType.Base:
+                        this.bonusProgram = new BaseAccountBonus(this);
+                        break;
+                    case BonusType.Extra:
+                        this.bonusProgram = new ExtraAccountBonus(this);
+                        break;
+                    default:
+                        this.bonusProgram = null;
+                        break;
+                }
             }
         }
 

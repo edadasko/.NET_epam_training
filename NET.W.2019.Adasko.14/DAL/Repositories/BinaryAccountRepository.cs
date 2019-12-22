@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using BLL.Interface.Entities;
-using BLL;
 using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
+using BLL.Mappers;
 
 namespace DAL.Repositories
 {
@@ -51,7 +51,7 @@ namespace DAL.Repositories
             List<BankAccount> accounts = new List<BankAccount>();
             foreach(var acc in dtoAccounts)
             {
-                accounts.Add(BankAccountMapper)
+                accounts.Add(acc.ConvertToBankAccount());
             }
             return accounts;
         }
@@ -59,10 +59,17 @@ namespace DAL.Repositories
         /// <inheritdoc />
         public void SaveAccounts(IEnumerable<BankAccount> accounts)
         {
+            List<DTO_BankAccount> dtoAccounts = new List<DTO_BankAccount>();
+
+            foreach(var acc in accounts)
+            {
+                dtoAccounts.Add(acc.ConvertToDTO());
+            }
+
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream fs = new FileStream(this.filePath, FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, accounts);
+                formatter.Serialize(fs, dtoAccounts);
             }
         }
     }

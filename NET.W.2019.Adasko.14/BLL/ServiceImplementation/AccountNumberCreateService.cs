@@ -3,8 +3,8 @@ using BLL.Interface.Interfaces;
 
 namespace BLL.ServiceImplementation
 {
-    public class AccountNumberCreateService : IAccountNumberCreateService
+    public class AccountGuidCreateService : IAccountNumberCreateService
     {
-        public int CreateId() => Guid.NewGuid().GetHashCode();
+        public int CreateId() => Math.Abs(Guid.NewGuid().GetHashCode());
     }
 }
