@@ -1,29 +1,47 @@
-﻿using System;
-using System.Linq;
-using BLL.Interface.Entities;
-using BLL.Interface.Interfaces;
-using DependencyResolver;
-using Ninject;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
 namespace ConsolePL
 {
-    class Program
-    {
-        private static readonly IKernel resolver;
+    using System;
+    using System.Linq;
+    using BLL.Interface.Entities;
+    using BLL.Interface.Interfaces;
+    using DependencyResolver;
+    using Ninject;
 
+    /// <summary>
+    /// Tests operations with the program in console mode.
+    /// </summary>
+    public class Program
+    {
+        /// <summary>
+        /// Ninject resolver.
+        /// </summary>
+        private static readonly IKernel Resolver;
+
+        /// <summary>
+        /// Initializes static members of the <see cref="Program"/> class.
+        /// </summary>
         static Program()
         {
-            resolver = new StandardKernel();
-            resolver.ConfigurateResolver();
+            Resolver = new StandardKernel();
+            Resolver.ConfigurateResolver();
         }
 
-        static void Main(string[] args)
+        /// <summary>
+        /// Starts the program.
+        /// </summary>
+        public static void Main()
         {
-            IAccountService service = resolver.Get<IAccountService>();
-            IAccountNumberCreateService creator = resolver.Get<IAccountNumberCreateService>();
+            IAccountService service = Resolver.Get<IAccountService>();
+            IAccountNumberCreateService creator = Resolver.Get<IAccountNumberCreateService>();
 
             // InitService(service, creator);
-
             var creditNumbers = service.GetAllAccounts().Select(acc => acc.AccountNumber).ToArray();
 
             foreach (var t in creditNumbers)
@@ -47,6 +65,11 @@ namespace ConsolePL
             }
         }
 
+        /// <summary>
+        /// Initializes serice with some entities.
+        /// </summary>
+        /// <param name="service">Service for initializing.</param>
+        /// <param name="creator">Account ID creator.</param>
         private static void InitService(IAccountService service, IAccountNumberCreateService creator)
         {
             service.OpenAccount("Account owner 1", AccountType.Base, BonusType.Base, creator);
@@ -55,5 +78,4 @@ namespace ConsolePL
             service.OpenAccount("Account owner 4", AccountType.Base, BonusType.Extra, creator);
         }
     }
-
 }

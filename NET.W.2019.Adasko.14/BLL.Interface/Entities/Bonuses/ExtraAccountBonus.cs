@@ -1,20 +1,20 @@
-﻿using System;
-using BLL.Interface.Interfaces;
+﻿//-----------------------------------------------------------------------
+// <copyright file="ExtraAccountBonus.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
 namespace BLL.Interface.Entities
 {
+    using BLL.Interface.Interfaces;
+
     /// <summary>
     /// Extra bonus class.
     /// Provides additional logic of changing bonus points.
     /// </summary>
     public class ExtraAccountBonus : IAccountBonus
     {
-        public BankAccount Account { get; set; }
-
-        public ExtraAccountBonus(BankAccount account)
-        {
-            this.Account = account;
-        }
         /// <summary>
         /// Additional deposit bonus.
         /// </summary>
@@ -24,6 +24,18 @@ namespace BLL.Interface.Entities
         /// Additional withdraw bonus.
         /// </summary>
         private const double ExtraWithdrawBonus = 0.8;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExtraAccountBonus"/> class.
+        /// </summary>
+        /// <param name="account">Account for bonus program.</param>
+        public ExtraAccountBonus(BankAccount account)
+        {
+            this.Account = account;
+        }
+
+        /// <inheritdoc/>
+        public BankAccount Account { get; set; }
 
         /// <inheritdoc/>
         public double GetDepositBonus(decimal value) =>

@@ -1,19 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BLL.Interface.Entities;
-using BLL.ServiceImplementation;
-using DAL.Interface.Interfaces;
-using Moq;
-using NUnit.Framework;
+﻿//-----------------------------------------------------------------------
+// <copyright file="AccountServiceTest.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
 namespace BLL.Tests
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using BLL.Interface.Entities;
+    using BLL.ServiceImplementation;
+    using DAL.Interface.Interfaces;
+    using Moq;
+    using NUnit.Framework;
+
+    /// <summary>
+    /// Tests AccountService class.
+    /// </summary>
     public static class AccountServiceTest
     {
+        /// <summary>
+        /// Mock for IAccountRepository.
+        /// </summary>
         private static Mock<IAccountRepository> mock;
+
+        /// <summary>
+        /// AccountService for testing.
+        /// </summary>
         private static AccountService service;
 
+        /// <summary>
+        /// Tests Deposit method.
+        /// </summary>
         [Test]
         public static void DepositTest()
         {
@@ -23,6 +42,9 @@ namespace BLL.Tests
             Assert.AreEqual(service.Accounts[0].Balance, 100);
         }
 
+        /// <summary>
+        /// Tests Withdraw method.
+        /// </summary>
         [Test]
         public static void WithdrawTest()
         {
@@ -33,6 +55,9 @@ namespace BLL.Tests
             Assert.AreEqual(service.Accounts[0].Balance, 50);
         }
 
+        /// <summary>
+        /// Tests getting bonus points.
+        /// </summary>
         [Test]
         public static void BonusPointsTest()
         {
@@ -47,8 +72,11 @@ namespace BLL.Tests
             Assert.IsTrue(service[1].BonusPoints > service[0].BonusPoints);
         }
 
+        /// <summary>
+        /// Tests OpenAccount method.
+        /// </summary>
         [Test]
-        public static void CreateAccountTest()
+        public static void OpenAccountTest()
         {
             SetupMock();
 
@@ -57,8 +85,11 @@ namespace BLL.Tests
             Assert.IsTrue(service.Accounts.Any(acc => acc.OwnerName == "3"));
         }
 
+        /// <summary>
+        /// Tests CloseAccount method.
+        /// </summary>
         [Test]
-        public static void RemoveAccountTest()
+        public static void CloseAccountTest()
         {
             SetupMock();
 
@@ -67,6 +98,9 @@ namespace BLL.Tests
             Assert.IsFalse(service.Accounts.Any(acc => acc.AccountNumber == 1));
         }
 
+        /// <summary>
+        /// Setups mock.
+        /// </summary>
         private static void SetupMock()
         {
             mock = new Mock<IAccountRepository>();

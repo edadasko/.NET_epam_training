@@ -1,5 +1,9 @@
-﻿using System;
-using BLL.Interface.Interfaces;
+﻿//-----------------------------------------------------------------------
+// <copyright file="AccountService.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
 namespace BLL.ServiceImplementation
 {
@@ -7,6 +11,7 @@ namespace BLL.ServiceImplementation
     using System.Collections.Generic;
     using System.Linq;
     using BLL.Interface.Entities;
+    using BLL.Interface.Interfaces;
     using DAL.Interface.Interfaces;
 
     /// <summary>
@@ -48,27 +53,26 @@ namespace BLL.ServiceImplementation
         /// </returns>
         public BankAccount this[int index] => this.Accounts[index];
 
-        /// <summary>
-        /// Loads accounts from the storage.
-        /// </summary>
+        /// <inheritdoc/>
         public IEnumerable<BankAccount> GetAllAccounts()
         {
             this.Accounts = this.accountsStorage.GetAccounts().ToList();
             return this.Accounts;
         }
 
-        /// <summary>
-        /// Saves accounts to the storage.
-        /// </summary>
-        public void SaveAccountsToStorage() => this.accountsStorage.SaveAccounts(this.Accounts);
-
+        /// <inheritdoc/>
         public void OpenAccount(string name, AccountType accountType, BonusType? bonusType, IAccountNumberCreateService createService)
         {
             BankAccount newAccount = null;
 
             int id = createService.CreateId();
 
-            switch(accountType)
+            while (this.Accounts.Any(a => a.AccountNumber == id))
+            {
+                id = createService.CreateId();
+            }
+
+            switch (accountType)
             {
                 case AccountType.Base:
                     newAccount = new BaseBankAccount(id, name, bonusType);
@@ -86,6 +90,7 @@ namespace BLL.ServiceImplementation
             this.SaveAccountsToStorage();
         }
 
+        /// <inheritdoc/>
         public void CloseAccount(int creditNumber)
         {
             BankAccount acc = this.Accounts.Find(a => a.AccountNumber == creditNumber);
@@ -100,33 +105,17 @@ namespace BLL.ServiceImplementation
             }
         }
 
-        /// <summary>
-        /// Makes deposit to passed account.
-        /// </summary>
-        /// <param name="id">
-        /// Id of account for deposit.
-        /// </param>
-        /// <param name="value">
-        /// Value of deposit.
-        /// </param>
+        /// <inheritdoc/>
         public void DepositAccount(int id, decimal value)
         {
-            BankAccount account = Accounts.Single(acc => acc.AccountNumber == id);
+            BankAccount account = this.Accounts.Single(acc => acc.AccountNumber == id);
             this.UpdateBalanceOfAccount(account.Deposit, account, value);
         }
 
-        /// <summary>
-        /// Makes withdraw from passed account,
-        /// </summary>
-        /// <param name="id">
-        /// Id of account for withdraw.
-        /// </param>
-        /// <param name="value">
-        /// Value of withdraw.
-        /// </param>
+        /// <inheritdoc/>
         public void WithdrawAccount(int id, decimal value)
         {
-            BankAccount account = Accounts.Single(acc => acc.AccountNumber == id);
+            BankAccount account = this.Accounts.Single(acc => acc.AccountNumber == id);
             this.UpdateBalanceOfAccount(account.Withdraw, account, value);
         }
 
@@ -152,5 +141,10 @@ namespace BLL.ServiceImplementation
             action(value);
             this.SaveAccountsToStorage();
         }
+
+        /// <summary>
+        /// Saves accounts to the storage.
+        /// </summary>
+        private void SaveAccountsToStorage() => this.accountsStorage.SaveAccounts(this.Accounts);
     }
 }

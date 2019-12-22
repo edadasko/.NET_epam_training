@@ -1,15 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using BLL.Interface.Entities;
-using DAL.Interface.DTO;
-using DAL.Interface.Interfaces;
-using BLL.Mappers;
+﻿//-----------------------------------------------------------------------
+// <copyright file="BinaryAccountRepository.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
 namespace DAL.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.Serialization.Formatters.Binary;
+    using BLL.Interface.Entities;
+    using BLL.Mappers;
+    using DAL.Interface.DTO;
+    using DAL.Interface.Interfaces;
+
+    /// <summary>
+    /// Binary storage for bank accounts.
+    /// </summary>
     public class BinaryAccountRepository : IAccountRepository
     {
         /// <summary>
@@ -49,10 +59,12 @@ namespace DAL.Repositories
             }
 
             List<BankAccount> accounts = new List<BankAccount>();
-            foreach(var acc in dtoAccounts)
+
+            foreach (var acc in dtoAccounts)
             {
                 accounts.Add(acc.ConvertToBankAccount());
             }
+
             return accounts;
         }
 
@@ -61,16 +73,15 @@ namespace DAL.Repositories
         {
             List<DTO_BankAccount> dtoAccounts = new List<DTO_BankAccount>();
 
-            foreach(var acc in accounts)
+            foreach (var acc in accounts)
             {
                 dtoAccounts.Add(acc.ConvertToDTO());
             }
 
             BinaryFormatter formatter = new BinaryFormatter();
-            using (FileStream fs = new FileStream(this.filePath, FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, dtoAccounts);
-            }
+
+            using FileStream fs = new FileStream(this.filePath, FileMode.OpenOrCreate);
+            formatter.Serialize(fs, dtoAccounts);
         }
     }
 }

@@ -1,9 +1,15 @@
-﻿using System;
-using System.Linq;
-using BLL.Interface.Interfaces;
+﻿//-----------------------------------------------------------------------
+// <copyright file="BankAccount.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
 namespace BLL.Interface.Entities
 {
+    using System;
+    using BLL.Interface.Interfaces;
+
     /// <summary>
     /// Abstract Bank Account class.
     /// </summary>
@@ -29,14 +35,10 @@ namespace BLL.Interface.Entities
         /// </summary>
         private double bonusPoints;
 
-        private IAccountBonus bonusProgram;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="BankAccount"/> class.
+        /// Bonus program of an account.
         /// </summary>
-        protected BankAccount()
-        {
-        }
+        private IAccountBonus bonusProgram;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BankAccount"/> class.
@@ -56,22 +58,22 @@ namespace BLL.Interface.Entities
             this.bonusProgram = null;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BankAccount"/> class.
+        /// </summary>
+        /// <param name="id">Id value.</param>
+        /// <param name="name">Owner name value.</param>
+        /// <param name="bonusProgram">Type of bonus program.</param>
         protected BankAccount(int id, string name, BonusType? bonusProgram) : this(id, name)
         {
             if (bonusProgram != null)
             {
-                switch(bonusProgram)
+                this.bonusProgram = bonusProgram switch
                 {
-                    case BonusType.Base:
-                        this.bonusProgram = new BaseAccountBonus(this);
-                        break;
-                    case BonusType.Extra:
-                        this.bonusProgram = new ExtraAccountBonus(this);
-                        break;
-                    default:
-                        this.bonusProgram = null;
-                        break;
-                }
+                    BonusType.Base => new BaseAccountBonus(this),
+                    BonusType.Extra => new ExtraAccountBonus(this),
+                    _ => null,
+                };
             }
         }
 
@@ -90,6 +92,7 @@ namespace BLL.Interface.Entities
         /// <param name="bonusPoints">
         /// Bonus points value.
         /// </param>
+        /// <param name="bonusProgram">Type of bonus program.</param>
         protected BankAccount(int id, string name, decimal balance, double bonusPoints, BonusType? bonusProgram)
             : this(id, name, bonusProgram)
         {
@@ -100,7 +103,7 @@ namespace BLL.Interface.Entities
         /// <summary>
         /// Gets and sets Id.
         /// </summary>
-        public virtual int AccountNumber
+        public int AccountNumber
         {
             get => this.id;
 
@@ -118,7 +121,7 @@ namespace BLL.Interface.Entities
         /// <summary>
         /// Gets and sets Owner name.
         /// </summary>
-        public virtual string OwnerName
+        public string OwnerName
         {
             get => this.ownerName;
 
@@ -133,10 +136,10 @@ namespace BLL.Interface.Entities
             }
         }
 
-        /// <summary>s
+        /// <summary>
         /// Gets and sets Balance.
         /// </summary>
-        public virtual decimal Balance
+        public decimal Balance
         {
             get => this.balance;
 
@@ -151,37 +154,6 @@ namespace BLL.Interface.Entities
             }
         }
 
-        public AccountType? GetAccountType()
-        {
-            if (this is BaseBankAccount)
-            {
-                return AccountType.Base;
-            }
-            else if (this is SilverBankAccount)
-            {
-                return AccountType.Silver;
-            }
-            else if (this is GoldBankAccount)
-            {
-                return AccountType.Gold;
-            }
-
-            return null;
-        }
-
-        public BonusType? GetBonusType()
-        {
-            if (this.bonusProgram is BaseAccountBonus)
-            {
-                return BonusType.Base;
-            }
-            else if (this.bonusProgram is ExtraAccountBonus)
-            {
-                return BonusType.Extra;
-            }
-
-            return null;
-        }
         /// <summary>
         /// Gets and sets Bonus points.
         /// </summary>
@@ -256,7 +228,51 @@ namespace BLL.Interface.Entities
                 double points = this.bonusProgram.GetWithdrawBonus(value);
                 this.BonusPoints -= points;
             }
+
             this.Balance -= value;
+        }
+
+        /// <summary>
+        /// Gets type of account.
+        /// </summary>
+        /// <returns>Type of account.</returns>
+        public AccountType? GetAccountType()
+        {
+            if (this is BaseBankAccount)
+            {
+                return AccountType.Base;
+            }
+
+            if (this is SilverBankAccount)
+            {
+                return AccountType.Silver;
+            }
+
+            if (this is GoldBankAccount)
+            {
+                return AccountType.Gold;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets type of bonus program.
+        /// </summary>
+        /// <returns>Type of bonus program.</returns>
+        public BonusType? GetBonusType()
+        {
+            if (this.bonusProgram is BaseAccountBonus)
+            {
+                return BonusType.Base;
+            }
+
+            if (this.bonusProgram is ExtraAccountBonus)
+            {
+                return BonusType.Extra;
+            }
+
+            return null;
         }
 
         /// <inheritdoc/> 
