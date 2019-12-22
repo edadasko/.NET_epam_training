@@ -80,19 +80,6 @@ namespace BLL.ServiceImplementation
                     break;
             }
 
-            if (bonusType != null)
-            {
-                switch (bonusType)
-                {
-                    case BonusType.Base:
-                        newAccount = new BaseAccountBonus(newAccount);
-                        break;
-                    case BonusType.Extra:
-                        newAccount = new ExtraAccountBonus(newAccount);
-                        break;
-                }
-            }
-
             this.Accounts.Add(newAccount);
 
             this.SaveAccountsToStorage();
@@ -110,34 +97,6 @@ namespace BLL.ServiceImplementation
             {
                 throw new ArgumentException("There is not such account.");
             }
-        }
-
-        /// <summary>
-        /// Removes all decorators from account.
-        /// </summary>
-        /// <param name="acc">
-        /// Account to remove decorators.
-        /// </param>
-        public void RemoveAllBonusPrograms(BankAccount acc)
-        {
-            if (acc == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            if (!this.Accounts.Contains(acc))
-            {
-                throw new ArgumentException("There is not such account.");
-            }
-
-            while (acc is AccountBonusDecorator decAccount)
-            {
-                acc = decAccount.Account;
-            }
-
-            this.Accounts[this.Accounts.IndexOf(acc)] = acc;
-
-            this.SaveAccountsToStorage();
         }
 
         /// <summary>
