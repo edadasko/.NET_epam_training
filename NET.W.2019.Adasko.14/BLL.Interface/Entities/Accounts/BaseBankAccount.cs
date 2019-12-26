@@ -7,6 +7,8 @@
 
 namespace BLL.Interface.Entities
 {
+    using BLL.Interface.Interfaces;
+
     /// <summary>
     /// Base bank account class with standart bonus coefficients.
     /// </summary>
@@ -43,7 +45,7 @@ namespace BLL.Interface.Entities
         /// <param name="bonusProgram">
         /// Type of bonus program.
         /// </param>
-        public BaseBankAccount(int id, string name, decimal balance, double bonusPoints, BonusType? bonusProgram)
+        public BaseBankAccount(int id, string name, decimal balance, double bonusPoints, IAccountBonus bonusProgram)
             : base(id, name, balance, bonusPoints, bonusProgram)
         {
         }
@@ -54,7 +56,7 @@ namespace BLL.Interface.Entities
         /// <param name="id">Id value.</param>
         /// <param name="name">Owner name value.</param>
         /// <param name="bonusProgram">Type od bonus program.</param>
-        public BaseBankAccount(int id, string name, BonusType? bonusProgram)
+        public BaseBankAccount(int id, string name, IAccountBonus bonusProgram)
             : base(id, name, bonusProgram)
         {
         }
@@ -70,5 +72,8 @@ namespace BLL.Interface.Entities
 
         /// <inheritdoc/> 
         public override double WithdrawValueCoefficient => 0.05;
+
+        /// <inheritdoc/> 
+        public override AccountType GetAccountType() => AccountType.Base;
     }
 }

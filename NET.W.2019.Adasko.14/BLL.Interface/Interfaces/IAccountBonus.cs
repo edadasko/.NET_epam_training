@@ -20,6 +20,11 @@ namespace BLL.Interface.Interfaces
         BankAccount Account { get; set; }
 
         /// <summary>
+        /// Gets Bonus Type.
+        /// </summary>
+        BonusType BonusType { get; }
+
+        /// <summary>
         /// Gets deposit bonus.
         /// </summary>
         /// <param name="value">Value of deposit.</param>

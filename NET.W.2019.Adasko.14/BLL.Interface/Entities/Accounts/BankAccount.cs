@@ -64,17 +64,11 @@ namespace BLL.Interface.Entities
         /// <param name="id">Id value.</param>
         /// <param name="name">Owner name value.</param>
         /// <param name="bonusProgram">Type of bonus program.</param>
-        protected BankAccount(int id, string name, BonusType? bonusProgram) : this(id, name)
+        protected BankAccount(int id, string name, IAccountBonus bonusProgram) : this(id, name)
         {
-            if (bonusProgram != null)
-            {
-                this.bonusProgram = bonusProgram switch
-                {
-                    BonusType.Base => new BaseAccountBonus(this),
-                    BonusType.Extra => new ExtraAccountBonus(this),
-                    _ => null,
-                };
-            }
+            bonusProgram.Account = this;
+            this.BonusType = bonusProgram.BonusType;
+            this.bonusProgram = bonusProgram;
         }
 
         /// <summary>
@@ -93,7 +87,7 @@ namespace BLL.Interface.Entities
         /// Bonus points value.
         /// </param>
         /// <param name="bonusProgram">Type of bonus program.</param>
-        protected BankAccount(int id, string name, decimal balance, double bonusPoints, BonusType? bonusProgram)
+        protected BankAccount(int id, string name, decimal balance, double bonusPoints, IAccountBonus bonusProgram)
             : this(id, name, bonusProgram)
         {
             this.Balance = balance;
@@ -175,6 +169,12 @@ namespace BLL.Interface.Entities
         }
 
         /// <summary>
+        /// Gets or sets type of bonus program.
+        /// </summary>
+        /// <returns>Type of bonus program.</returns>
+        public BonusType? BonusType { get; set; }
+
+        /// <summary>
         /// Gets Deposit Balance Coefficient.
         /// It is used in calculating bonus points.
         /// </summary>
@@ -236,44 +236,7 @@ namespace BLL.Interface.Entities
         /// Gets type of account.
         /// </summary>
         /// <returns>Type of account.</returns>
-        public AccountType? GetAccountType()
-        {
-            if (this is BaseBankAccount)
-            {
-                return AccountType.Base;
-            }
-
-            if (this is SilverBankAccount)
-            {
-                return AccountType.Silver;
-            }
-
-            if (this is GoldBankAccount)
-            {
-                return AccountType.Gold;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Gets type of bonus program.
-        /// </summary>
-        /// <returns>Type of bonus program.</returns>
-        public BonusType? GetBonusType()
-        {
-            if (this.bonusProgram is BaseAccountBonus)
-            {
-                return BonusType.Base;
-            }
-
-            if (this.bonusProgram is ExtraAccountBonus)
-            {
-                return BonusType.Extra;
-            }
-
-            return null;
-        }
+        public abstract AccountType GetAccountType();
 
         /// <inheritdoc/> 
         public override bool Equals(object obj)

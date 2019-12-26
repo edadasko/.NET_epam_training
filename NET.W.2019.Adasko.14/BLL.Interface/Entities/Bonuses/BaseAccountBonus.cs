@@ -15,14 +15,8 @@ namespace BLL.Interface.Entities
     /// </summary>
     public class BaseAccountBonus : IAccountBonus
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseAccountBonus"/> class.
-        /// </summary>
-        /// <param name="account">Account for bonus program.</param>
-        public BaseAccountBonus(BankAccount account)
-        {
-            this.Account = account;
-        }
+        /// <inheritdoc/>
+        public BonusType BonusType => BonusType.Base;
 
         /// <inheritdoc/>
         public BankAccount Account { get; set; }

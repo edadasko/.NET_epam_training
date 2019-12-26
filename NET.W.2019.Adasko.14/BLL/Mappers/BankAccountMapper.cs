@@ -7,7 +7,9 @@
 
 namespace BLL.Mappers
 {
+    using System;
     using BLL.Interface.Entities;
+    using BLL.Interface.Interfaces;
     using DAL.Interface.DTO;
 
     /// <summary>
@@ -29,7 +31,7 @@ namespace BLL.Mappers
                 BonusPoints = account.BonusPoints,
                 OwnerName = account.OwnerName,
                 AccountType = account.GetAccountType(),
-                BonusType = account.GetBonusType()
+                BonusType = account.BonusType
             };
         }
 
@@ -40,6 +42,13 @@ namespace BLL.Mappers
         /// <returns>Converted account.</returns>
         public static BankAccount ConvertToBankAccount(this DTO_BankAccount dtoAccount)
         {
+            IAccountBonus bonusProgram = dtoAccount.BonusType switch
+            {
+                BonusType.Base => new BaseAccountBonus(),
+                BonusType.Extra => new ExtraAccountBonus(),
+                _ => throw new ArgumentException(),
+            };
+
             return dtoAccount.AccountType switch
             {
                 AccountType.Base => new BaseBankAccount(
@@ -47,21 +56,21 @@ namespace BLL.Mappers
                       dtoAccount.OwnerName,
                       dtoAccount.Balance,
                       dtoAccount.BonusPoints,
-                      dtoAccount.BonusType),
+                      bonusProgram),
 
                 AccountType.Gold => new GoldBankAccount(
                         dtoAccount.AccountNumber,
                         dtoAccount.OwnerName,
                         dtoAccount.Balance,
                         dtoAccount.BonusPoints,
-                        dtoAccount.BonusType),
+                        bonusProgram),
 
                 AccountType.Silver => new SilverBankAccount(
                         dtoAccount.AccountNumber,
                         dtoAccount.OwnerName,
                         dtoAccount.Balance,
                         dtoAccount.BonusPoints,
-                        dtoAccount.BonusType),
+                        bonusProgram),
 
                 _ => null,
             };

@@ -25,17 +25,11 @@ namespace BLL.Interface.Entities
         /// </summary>
         private const double ExtraWithdrawBonus = 0.8;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExtraAccountBonus"/> class.
-        /// </summary>
-        /// <param name="account">Account for bonus program.</param>
-        public ExtraAccountBonus(BankAccount account)
-        {
-            this.Account = account;
-        }
-
         /// <inheritdoc/>
         public BankAccount Account { get; set; }
+
+        /// <inheritdoc/>
+        public BonusType BonusType => BonusType.Extra;
 
         /// <inheritdoc/>
         public double GetDepositBonus(decimal value) =>

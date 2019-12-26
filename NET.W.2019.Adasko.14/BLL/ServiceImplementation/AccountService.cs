@@ -61,7 +61,7 @@ namespace BLL.ServiceImplementation
         }
 
         /// <inheritdoc/>
-        public void OpenAccount(string name, AccountType accountType, BonusType? bonusType, IAccountNumberCreateService createService)
+        public void OpenAccount(string name, AccountType accountType, IAccountBonus bonusType, IAccountNumberCreateService createService)
         {
             BankAccount newAccount = null;
 

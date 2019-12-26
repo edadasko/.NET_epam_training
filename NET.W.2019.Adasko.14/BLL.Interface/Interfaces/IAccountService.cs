@@ -25,7 +25,7 @@ namespace BLL.Interface.Interfaces
         void OpenAccount(
             string name,
             AccountType accountType,
-            BonusType? bonusType,
+            IAccountBonus bonusType,
             IAccountNumberCreateService createService);
 
         /// <summary>

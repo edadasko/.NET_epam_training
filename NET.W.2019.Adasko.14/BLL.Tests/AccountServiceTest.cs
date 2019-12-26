@@ -80,7 +80,7 @@ namespace BLL.Tests
         {
             SetupMock();
 
-            service.OpenAccount("3", AccountType.Gold, BonusType.Base, new AccountGuidCreateService());
+            service.OpenAccount("3", AccountType.Gold, new BaseAccountBonus(), new AccountGuidCreateService());
 
             Assert.IsTrue(service.Accounts.Any(acc => acc.OwnerName == "3"));
         }
@@ -107,8 +107,8 @@ namespace BLL.Tests
             mock.Setup(a => a.GetAccounts()).Returns(
                 new List<BankAccount>
                 {
-                    new BaseBankAccount(1, "1", BonusType.Base),
-                    new GoldBankAccount(2, "2", BonusType.Extra),
+                    new BaseBankAccount(1, "1", new BaseAccountBonus()),
+                    new GoldBankAccount(2, "2", new ExtraAccountBonus()),
                 });
             service = new AccountService(mock.Object);
         }

@@ -72,10 +72,10 @@ namespace ConsolePL
         /// <param name="creator">Account ID creator.</param>
         private static void InitService(IAccountService service, IAccountNumberCreateService creator)
         {
-            service.OpenAccount("Account owner 1", AccountType.Base, BonusType.Base, creator);
-            service.OpenAccount("Account owner 2", AccountType.Base, BonusType.Base, creator);
-            service.OpenAccount("Account owner 3", AccountType.Silver, BonusType.Extra, creator);
-            service.OpenAccount("Account owner 4", AccountType.Base, BonusType.Extra, creator);
+            service.OpenAccount("Account owner 1", AccountType.Base, new BaseAccountBonus(), creator);
+            service.OpenAccount("Account owner 2", AccountType.Base, new BaseAccountBonus(), creator);
+            service.OpenAccount("Account owner 3", AccountType.Silver, new ExtraAccountBonus(), creator);
+            service.OpenAccount("Account owner 4", AccountType.Base, new BaseAccountBonus(), creator);
         }
     }
 }
