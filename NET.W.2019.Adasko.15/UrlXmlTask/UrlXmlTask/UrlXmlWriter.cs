@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using NLog;
 
 namespace UrlXmlTask
 {
@@ -8,6 +9,7 @@ namespace UrlXmlTask
     {
         private readonly UrlAdresses urlAdresses;
         private readonly string outputPath;
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public UrlXmlWriter(FileStream fileStream, string outputPath)
         {
@@ -42,6 +44,11 @@ namespace UrlXmlTask
                     if (address != null)
                     {
                         adresses.Add(UrlConverter.Convert(urlString));
+                        logger.Info(urlString + " was succesfully written.");
+                    }
+                    else
+                    {
+                        logger.Error(urlString + " was not written.");
                     }
                     urlString = reader.ReadLine();
                 }
