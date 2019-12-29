@@ -75,10 +75,10 @@ namespace UrlXmlTask
                 string urlString = reader.ReadLine();
                 while (urlString != null)
                 {
-                    UrlAddress address = UrlParses.Parse(urlString);
+                    UrlAddress address = UrlParser.Parse(urlString);
                     if (address != null)
                     {
-                        adresses.Add(UrlParses.Parse(urlString));
+                        adresses.Add(UrlParser.Parse(urlString));
                         this.logger.Info(urlString + " was succesfully written.");
                     }
                     else

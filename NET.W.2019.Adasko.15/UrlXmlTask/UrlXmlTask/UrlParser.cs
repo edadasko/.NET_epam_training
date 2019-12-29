@@ -15,7 +15,7 @@ namespace UrlXmlTask
     /// <summary>
     /// Represents helper class for converting url string to UrlAddress class.
     /// </summary>
-    public static class UrlParses
+    public static class UrlParser
     {
         /// <summary>
         /// Converts url string to UrlAddress class.
@@ -30,29 +30,45 @@ namespace UrlXmlTask
 
             try
             {
-                var components = stringUrl.Split('/')[2..];
+                var startIndex = stringUrl.IndexOf("://", StringComparison.InvariantCulture);
+
+                if (startIndex == -1)
+                {
+                    return null;
+                }
+
+                var components = stringUrl[(startIndex + "://".Length)..].Split('/');
 
                 host = new UrlHost { Name = components[0] };
                 segments = components[1..].ToList();
-                segments.RemoveAll(s => string.IsNullOrEmpty(s));
 
-                var lastSegmentAndParameters = segments[^1].Split('?');
-                segments[^1] = lastSegmentAndParameters[0];
-
-                if (lastSegmentAndParameters.Length > 1)
+                if (segments.Count > 0)
                 {
-                    var parameters = lastSegmentAndParameters[1].Split('&');
+                    segments.RemoveAll(s => string.IsNullOrEmpty(s));
 
-                    urlParameters = new List<UrlParameter>();
+                    var lastSegmentAndParameters = segments[^1].Split('?');
+                    segments[^1] = lastSegmentAndParameters[0];
 
-                    foreach (var parameter in parameters)
+                    if (lastSegmentAndParameters.Length > 1)
                     {
-                        var pair = parameter.Split('=');
-                        urlParameters.Add(new UrlParameter { Key = pair[0], Value = pair[1] });
+                        var parameters = lastSegmentAndParameters[1].Split('&');
+
+                        urlParameters = new List<UrlParameter>();
+
+                        foreach (var parameter in parameters)
+                        {
+                            var pair = parameter.Split('=');
+                            urlParameters.Add(new UrlParameter { Key = pair[0], Value = pair[1] });
+                        }
+                    }
+                    else
+                    {
+                        urlParameters = null;
                     }
                 }
                 else
                 {
+                    segments = null;
                     urlParameters = null;
                 }
             }
@@ -68,7 +84,7 @@ namespace UrlXmlTask
             return new UrlAddress
             {
                 Host = host,
-                Segments = segments.ToArray(),
+                Segments = segments?.ToArray(),
                 Parameters = urlParameters?.ToArray()
             };
         }
