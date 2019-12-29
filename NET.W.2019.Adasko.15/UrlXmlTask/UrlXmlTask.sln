@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlXmlTask", "UrlXmlTask\UrlXmlTask.csproj", "{4878ADAC-26A8-4377-B54A-1E323B848A96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlXmlConsoleTest", "UrlXmlConsoleTest\UrlXmlConsoleTest.csproj", "{F018D755-370C-4418-8B17-2ACF2D77E849}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4878ADAC-26A8-4377-B54A-1E323B848A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4878ADAC-26A8-4377-B54A-1E323B848A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4878ADAC-26A8-4377-B54A-1E323B848A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4878ADAC-26A8-4377-B54A-1E323B848A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F018D755-370C-4418-8B17-2ACF2D77E849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F018D755-370C-4418-8B17-2ACF2D77E849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F018D755-370C-4418-8B17-2ACF2D77E849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F018D755-370C-4418-8B17-2ACF2D77E849}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
