@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UrlXmlTask;
 
 namespace UrlXmlConsoleTest
@@ -7,7 +8,9 @@ namespace UrlXmlConsoleTest
     {
         static void Main(string[] args)
         {
-            var a = UrlConverter.Convert("https://github.com/AnzhelikaKravchuk?tab=repositories");
+            using FileStream fileStream = new FileStream("urls.txt", FileMode.Open, FileAccess.Read);
+            UrlXmlWriter writer = new UrlXmlWriter(fileStream, "xml_urls.xml");
+            writer.Write();
         }
     }
 }

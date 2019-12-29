@@ -6,7 +6,7 @@ namespace UrlXmlTask
 {
     public static class UrlConverter
     {
-        public static UrlAdress Convert(string stringUrl)
+        public static UrlAddress Convert(string stringUrl)
         {
             UrlHost host;
             List<string> segments;
@@ -18,28 +18,42 @@ namespace UrlXmlTask
 
                 host = new UrlHost { Name = components[0] };
                 segments = components[1..].ToList();
-                segments[^1] = segments[^1].Split('?')[0];
+                segments.RemoveAll(s => string.IsNullOrEmpty(s));
 
-                var parameters = components[^1].Split('?')[1].Split('&');
+                var lastSegmentAndParameters = segments[^1].Split('?');
+                segments[^1] = lastSegmentAndParameters[0];
 
-                urlParameters = new List<UrlParameter>();
-
-                foreach (var parameter in parameters)
+                if (lastSegmentAndParameters.Length > 1)
                 {
-                    var pair = parameter.Split('=');
-                    urlParameters.Add(new UrlParameter { Key = pair[0], Value = pair[1] });
+                    var parameters = lastSegmentAndParameters[1].Split('&');
+
+                    urlParameters = new List<UrlParameter>();
+
+                    foreach (var parameter in parameters)
+                    {
+                        var pair = parameter.Split('=');
+                        urlParameters.Add(new UrlParameter { Key = pair[0], Value = pair[1] });
+                    }
+                }
+                else
+                {
+                    urlParameters = null;
                 }
             }
             catch(IndexOutOfRangeException)
             {
                 return null;
             }
+            catch(ArgumentOutOfRangeException)
+            {
+                return null;
+            }
 
-            return new UrlAdress
+            return new UrlAddress
             {
                 Host = host,
                 Segments = segments.ToArray(),
-                Parameters = urlParameters.ToArray()
+                Parameters = urlParameters?.ToArray()
             };
         }
     }

@@ -13,7 +13,7 @@ namespace UrlXmlTask
         {
             this.outputPath = outputPath;
 
-            List<UrlAdress> adresses = GetAdressesFromFile(fileStream);
+            List<UrlAddress> adresses = GetAdressesFromFile(fileStream);
                
             urlAdresses = new UrlAdresses
             {
@@ -30,15 +30,19 @@ namespace UrlXmlTask
             serializer.Serialize(writer, urlAdresses, xns);
         }
 
-        private List<UrlAdress> GetAdressesFromFile(FileStream fileStream)
+        private List<UrlAddress> GetAdressesFromFile(FileStream fileStream)
         {
-            List<UrlAdress> adresses = new List<UrlAdress>();
+            List<UrlAddress> adresses = new List<UrlAddress>();
             using (StreamReader reader = new StreamReader(fileStream))
             {
                 string urlString = reader.ReadLine();
                 while (urlString != null)
                 {
-                    adresses.Add(UrlConverter.Convert(urlString));
+                    UrlAddress address = UrlConverter.Convert(urlString);
+                    if (address != null)
+                    {
+                        adresses.Add(UrlConverter.Convert(urlString));
+                    }
                     urlString = reader.ReadLine();
                 }
             }

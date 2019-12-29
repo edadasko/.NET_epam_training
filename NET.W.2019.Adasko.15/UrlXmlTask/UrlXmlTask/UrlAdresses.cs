@@ -2,14 +2,14 @@
 
 namespace UrlXmlTask
 {
+    [XmlRoot(ElementName = "urlAddresses", IsNullable = false)]
     public class UrlAdresses
     {
-        [XmlArray("urlAdresses")]
-        [XmlArrayItem("urlAddress")]
-        public UrlAdress[] Adresses { get; set; }
+        [XmlElement("urlAddress")]
+        public UrlAddress[] Adresses { get; set; }
     }
 
-    public class UrlAdress
+    public class UrlAddress
     {
         [XmlElement("host")]
         public UrlHost Host { get; set; }
@@ -31,10 +31,10 @@ namespace UrlXmlTask
 
     public class UrlParameter
     {
-        [XmlAttribute("key")]
-        public string Key { get; set; }
-
         [XmlAttribute("value")]
         public string Value { get; set; }
+
+        [XmlAttribute("key")]
+        public string Key { get; set; }
     }
 }
