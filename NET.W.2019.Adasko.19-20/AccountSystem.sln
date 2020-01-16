@@ -17,12 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyResolver", "Depen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL.Tests", "BLL.Tests\BLL.Tests.csproj", "{8E4E34D9-4F24-449D-AC2B-85FF8B0ABB44}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8E774A7C-6614-4F3C-AECE-5AE7A413CE81}"
-	ProjectSection(SolutionItems) = preProject
-		CodeMap.dgml = CodeMap.dgml
-		CodeMap1.dgml = CodeMap1.dgml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
