@@ -8,6 +8,7 @@
 namespace DAL.Interface.DTO
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using BLL.Interface.Entities;
 
     /// <summary>
@@ -16,6 +17,10 @@ namespace DAL.Interface.DTO
     [Serializable]
     public class DTO_BankAccount
     {
+        [Key]
+        /// Gets or sets Id for storing in database.
+        public int Id { get; set; }
+
         /// <summary>
         /// Gets or sets unique account number.
         /// </summary>

@@ -41,7 +41,7 @@ namespace ConsolePL
             IAccountService service = Resolver.Get<IAccountService>();
             IAccountNumberCreateService creator = Resolver.Get<IAccountNumberCreateService>();
 
-            // InitService(service, creator);
+            InitService(service, creator);
             var creditNumbers = service.GetAllAccounts().Select(acc => acc.AccountNumber).ToArray();
 
             foreach (var t in creditNumbers)
