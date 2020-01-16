@@ -1,29 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿//-----------------------------------------------------------------------
+// <copyright file="AccountsContext.cs" company="EpamTraining">
+//     All rights reserved.
+// </copyright>
+// <author>Eduard Adasko</author>
+//-----------------------------------------------------------------------
 
 namespace DAL.Interface.DTO
 {
+    using Microsoft.EntityFrameworkCore;
+
     /// <summary>
     /// Context class for working with accounts using EntityFramework.
     /// </summary>
     public class AccountsContext : DbContext
     {
         /// <summary>
-        /// Gets or sets accounts.
+        /// Initializes a new instance of the <see cref="AccountsContext"/> class.
         /// </summary>
-        public DbSet<DTO_BankAccount> Accounts { get; set; }
-
-        /// <summary>
-        /// Inializes a new instance of the <see cref="AccountsContext"/> class.
-        /// </summary>
-        public AccountsContext()
+        public AccountsContext(DbContextOptions<AccountsContext> options)
+             : base(options)
         {
             Database.EnsureCreated();
         }
 
-        /// <inheritdoc/>
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=localhost,1433; Database=AccountsDBTest; User=SA; Password=Edik3003");
-        }
+        /// <summary>
+        /// Gets or sets accounts.
+        /// </summary>
+        public DbSet<DTO_BankAccount> Accounts { get; set; }
     }
 }

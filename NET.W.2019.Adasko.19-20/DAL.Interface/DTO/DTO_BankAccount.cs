@@ -17,8 +17,10 @@ namespace DAL.Interface.DTO
     [Serializable]
     public class DTO_BankAccount
     {
-        [Key]
+        /// <summary>
         /// Gets or sets Id for storing in database.
+        /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>

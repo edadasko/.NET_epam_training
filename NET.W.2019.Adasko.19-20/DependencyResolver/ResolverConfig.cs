@@ -7,11 +7,14 @@
 
 namespace DependencyResolver
 {
+    using System.IO;
     using BLL.Interface.Interfaces;
     using BLL.ServiceImplementation;
     using DAL.Interface.DTO;
     using DAL.Interface.Interfaces;
     using DAL.Repositories;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
     using Ninject;
 
     /// <summary>
@@ -26,9 +29,20 @@ namespace DependencyResolver
         public static void ConfigurateResolver(this IKernel kernel)
         {
             kernel.Bind<IAccountService>().To<AccountService>();
-            kernel.Bind<IAccountRepository>().To<EFAccountsRepository>()
-                .WithConstructorArgument(new AccountsContext());
             kernel.Bind<IAccountNumberCreateService>().To<AccountGuidCreateService>().InSingletonScope();
+
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsettings.json");
+            var config = builder.Build();
+            string connectionString = config.GetConnectionString("DefaultConnection");
+
+            var optionsBuilder = new DbContextOptionsBuilder<AccountsContext>();
+            var options = optionsBuilder
+                .UseSqlServer(connectionString)
+                .Options;
+
+            kernel.Bind<IAccountRepository>().To<EFAccountsRepository>().WithConstructorArgument(new AccountsContext(options));
         }
     }
 }

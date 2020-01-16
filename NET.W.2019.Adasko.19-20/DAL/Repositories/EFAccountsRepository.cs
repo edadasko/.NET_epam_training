@@ -18,6 +18,9 @@ namespace DAL.Repositories
     /// </summary>
     public class EFAccountsRepository : IAccountRepository
     {
+        /// <summary>
+        /// EF context for accounts.
+        /// </summary>
         private readonly AccountsContext context;
 
         /// <summary>
