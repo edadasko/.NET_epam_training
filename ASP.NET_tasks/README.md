@@ -12,11 +12,11 @@ Create top level navigation bar with one (two) breakpoints and media queries: ht
 Implement Slideshow widget similar to https://www.w3schools.com/howto/howto_js_slideshow_gallery.asp
 
 First version: 
-    ASP.NET MVC project   
-    Top navigation menu on the Layout page
-    Slideshow widget on an Index view
-    Images are stored inside an /image folder on the server
-    AJAX paging  
+- ASP.NET MVC project   
+- Top navigation menu on the Layout page
+- Slideshow widget on an Index view
+- Images are stored inside an /image folder on the server 
+- AJAX paging  
 
 Second version:
-    Images stored in EF database on the server + AJAX 
+- Images stored in EF database on the server + AJAX 
