@@ -15,7 +15,7 @@ namespace task1.Handlers
 
         public void ProcessRequest(HttpContext context)
         {
-            context.Response.Write("<h1>Custom Handler</h1>");
+            context.Response.WriteFile("Response.html");
         }
     }
 }
