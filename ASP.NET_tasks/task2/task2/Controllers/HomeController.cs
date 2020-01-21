@@ -18,7 +18,6 @@ namespace task2.Controllers
         public HomeController()
         {
             repository = new EFPhotosRepository();
-            // repository.RemoveAllPhotos();
         }
 
         public ActionResult Index(int pageNum = 1)
@@ -65,7 +64,13 @@ namespace task2.Controllers
                 this.repository.AddPhoto(model);
             }
 
-            return RedirectPermanent("/home");
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ClearAll()
+        {
+            this.repository.RemoveAllPhotos();
+            return RedirectToAction("Index", "Home");
         }
 
         public PartialViewResult PhotosPage(int pageNum)

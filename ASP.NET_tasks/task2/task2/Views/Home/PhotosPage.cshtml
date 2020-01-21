@@ -1,6 +1,6 @@
 ﻿@model task2.Models.PagedList<task2.Models.Photo>
 
-<div class="container">
+<div class="photos-contatiner">
     @for (int i = 0; i < Model.Content.Count; i++)
     {
         string number = ((Model.CurrentPage - 1) * Model.PageSize + i + 1) + "/" + Model.TotalRecords;
@@ -15,24 +15,78 @@
 
     <div class="caption-container">
         <p id="caption"></p>
-    </div>
-
-    <div class="row">
-        @for (int i = 0; i < Model.Content.Count; i++)
-        {
-            <div class="column">
-                <img class="demo cursor"
-                     src=@("data:image;base64," + @Convert.ToBase64String(Model.Content[i].SmallImage))
-                     onclick="currentSlide(@(i+1))"
-                     style="width: 100%"
-                     alt="@Model.Content[i].Description">
-            </div>
-        }
+        <div class="row">
+            @for (int i = 0; i < Model.Content.Count; i++)
+            {
+                <div class="column">
+                    <img class="demo cursor"
+                         src=@("data:image;base64," + @Convert.ToBase64String(Model.Content[i].SmallImage))
+                         onclick="currentSlide(@(i+1))"
+                         style="width: 100%"
+                         alt="@Model.Content[i].Description">
+                </div>
+            }
+        </div>
     </div>
 </div>
 
+<script>
+    var photosPerPage = 6;
+    var slideIndex = 1;
+
+    showSlides(slideIndex);
+
+    function prevSlide(currentPage) {
+        if (slideIndex == 1 && currentPage == 1) {
+            return;
+        }
+        if (slideIndex != 1) {
+            showSlides(slideIndex -= 1);
+            return
+        }
+        currentPage -= 1;
+        $('#photos').load('@Url.Action("PhotosPage", "Home")?pageNum=' + currentPage);
+    }
+
+    function nextSlide(currentPage, totalRecords) {
+        if (slideIndex == photosPerPage && totalRecords / photosPerPage == currentPage) {
+            return;
+        }
+
+        if (slideIndex != photosPerPage) {
+            showSlides(slideIndex += 1);
+            return;
+        }
+        currentPage += 1;
+        $('#photos').load('@Url.Action("PhotosPage", "Home")?pageNum=' + currentPage);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) { slideIndex = slides.length; return; }
+        if (n < 1) { slideIndex = 1; return; }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+</script>
+
 <style>
-    .container {
+    .photos-contatiner {
+        margin-top: 20px;
         position: relative;
     }
 
@@ -61,14 +115,14 @@
     }
 
     .next {
-        right: 20px;
+        right: 10px;
         border-radius: 3px 0 0 3px;
     }
 
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
 
     .numbertext {
         color: #f2f2f2;
@@ -100,61 +154,8 @@
         opacity: 0.6;
     }
 
-        .active,
-        .demo:hover {
-            opacity: 1;
-        }
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
 </style>
-
-<script>
-        var photosPerPage = 6;
-        var slideIndex = 1;
-
-        showSlides(slideIndex);
-
-        function prevSlide(currentPage) {
-            if (slideIndex == 1 && currentPage == 1) {
-                return;
-            }
-            if (slideIndex != 1) {
-                showSlides(slideIndex -= 1);
-                return
-            }
-            currentPage -= 1;
-            $('#photos').load('@Url.Action("PhotosPage", "Home")?pageNum=' + currentPage);
-        }
-
-        function nextSlide(currentPage, totalRecords) {
-            if (slideIndex == photosPerPage && totalRecords / photosPerPage == currentPage) {
-                return;
-            }
-
-            if (slideIndex != photosPerPage) {
-                showSlides(slideIndex += 1);
-                return;
-            }
-            currentPage += 1;
-            $('#photos').load('@Url.Action("PhotosPage", "Home")?pageNum=' + currentPage);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("demo");
-            var captionText = document.getElementById("caption");
-            if (n > slides.length) { slideIndex = slides.length; return; }
-            if (n < 1) { slideIndex = 1; return; }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-            captionText.innerHTML = dots[slideIndex - 1].alt;
-        }
-</script>

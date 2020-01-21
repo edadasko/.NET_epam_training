@@ -1,7 +1,5 @@
 ﻿@model task2.Models.PagedList<task2.Models.Photo>
 
-<h2>Total number of photos: @Model.TotalRecords</h2>
-
 <div id="photos">
     @{ Html.RenderPartial("PhotosPage", Model);}
 </div>
