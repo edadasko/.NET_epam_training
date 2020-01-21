@@ -2,4 +2,6 @@
 
 <h2>Total number of photos: @Model.TotalRecords</h2>
 
-@{ Html.RenderPartial("PhotosPage", Model);}
+<div id="photos">
+    @{ Html.RenderPartial("PhotosPage", Model);}
+</div>

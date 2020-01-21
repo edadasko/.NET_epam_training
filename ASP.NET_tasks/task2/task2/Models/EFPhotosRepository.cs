@@ -37,5 +37,11 @@ namespace task2.Models
         }
 
         public int GetTotalNumberOfPhotos() => context.Photos.Count();
+
+        public void RemoveAllPhotos()
+        {
+            this.context.Photos.RemoveRange(this.context.Photos);
+            this.context.SaveChanges();
+        }
     }
 }

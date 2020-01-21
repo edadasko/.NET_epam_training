@@ -12,5 +12,6 @@ namespace task2.Models
         void AddPhoto(Photo photo);
         int GetTotalNumberOfPhotos();
         PagedList<Photo> GetPageOfPhotos(int pageNum, int pageSize);
+        void RemoveAllPhotos();
     }
 }

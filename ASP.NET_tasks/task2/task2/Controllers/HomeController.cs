@@ -18,6 +18,7 @@ namespace task2.Controllers
         public HomeController()
         {
             repository = new EFPhotosRepository();
+            // repository.RemoveAllPhotos();
         }
 
         public ActionResult Index(int pageNum = 1)
@@ -51,7 +52,7 @@ namespace task2.Controllers
 
                 model.Description = photo.Description;
 
-                int smallImageSize = 70;
+                int smallImageSize = 100;
 
                 using (var img = Image.FromStream(file.InputStream))
                 {
